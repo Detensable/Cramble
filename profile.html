@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Profile – Cramble</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script src="firebase-config.js"></script>
+</head>
+<body>
+  <div class="profile-page">
+    <div id="profile-card">
+      <div id="profile-pic"></div>
+
+      <h2>
+        <input type="text" id="name-input" placeholder="Enter name" />
+      </h2>
+      <p id="email"></p>
+
+      <input type="file" id="file-input" accept="image/*" />
+      <button onclick="saveProfile()">Save Changes</button>
+      <button onclick="goHome()">Back to Home</button>
+    </div>
+  </div>
+
+  <script>
+    const auth = firebase.auth();
+    const db = firebase.database();
+    let selectedFile = null;
+
+    // Handle auth + load profile
+    auth.onAuthStateChanged(user => {
+      if (!user) {
+        window.location.href = "index.html";
+      } else {
+        document.getElementById("email").textContent = user.email;
+        document.getElementById("name-input").value = user.displayName || "";
+
+        const picContainer = document.getElementById("profile-pic");
+        picContainer.innerHTML = "";
+
+        // Load image from database
+        db.ref("users/" + user.uid + "/profileImage").once("value")
+          .then((snapshot) => {
+            const image = snapshot.val();
+
+            if (image) {
+              const img = document.createElement("img");
+              img.src = image;
+              img.style.width = "100%";
+              img.style.height = "100%";
+              img.style.borderRadius = "50%";
+              picContainer.appendChild(img);
+            } else {
+              picContainer.textContent = user.email[0].toUpperCase();
+            }
+          });
+
+        // File input listener
+        document.getElementById("file-input").addEventListener("change", (e) => {
+          selectedFile = e.target.files[0];
+        });
+      }
+    });
+
+    function saveProfile() {
+      const name = document.getElementById("name-input").value;
+      const user = firebase.auth().currentUser;
+      if (!user) return;
+
+      const updateAuthProfile = (photoURL) => {
+        const profileUpdate = { displayName: name };
+        if (photoURL) profileUpdate.photoURL = photoURL;
+
+        user.updateProfile(profileUpdate)
+          .then(() => {
+            alert("Profile updated!");
+            location.reload();
+          })
+          .catch(err => alert(err.message));
+      };
+
+      if (selectedFile) {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+          const base64String = event.target.result;
+
+          db.ref("users/" + user.uid).set({
+            profileImage: base64String
+          }).then(() => {
+            updateAuthProfile(); // No need to update photoURL since we're not using Auth's photoURL
+          });
+        };
+        reader.readAsDataURL(selectedFile);
+      } else {
+        updateAuthProfile();
+      }
+    }
+
+    function goHome() {
+      window.location.href = "home.html";
+    }
+  </script>
+</body>
+</html>

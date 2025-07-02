@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cramble – Slots</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="layout.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/slots.css" />
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="js/balance.js"></script>
+
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <a href="home.html">Home</a>
+    <a href="blackjack.html">Blackjack</a>
+    <a href="roulette.html">Roulette</a>
+    <a href="slots.html">Slots</a>
+    <a href="option4.html">Option 4</a>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+    <!-- Profile icon -->
+    <div id="profile-wrapper">
+      <div id="profile-icon">👤</div>
+      <div id="dropdown" class="hidden">
+        <div onclick="viewProfile()">View Profile</div>
+        <div onclick="logout()">Logout</div>
+      </div>
+    </div>
+
+    <!-- Slots Game -->
+    <h1>🎰 Slot Machine</h1>
+    <div id="balance">Balance: $0</div>
+
+    <div id="machine-container">
+      <div id="slot-machine">
+        <div class="reel" id="reel1">🍒</div>
+        <div class="reel" id="reel2">🍋</div>
+        <div class="reel" id="reel3">🔔</div>
+      </div>
+      <div id="lever"></div>
+    </div>
+
+    <div id="controls">
+      Bet: $
+      <input type="number" id="betAmount" value="10" min="1" />
+      <button id="withdrawBtn">Withdraw</button>
+    </div>
+
+    <div id="message"></div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/slots.js"></script>
+</body>
+</html>

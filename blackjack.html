@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cramble – Blackjack</title>
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="css/blackjack.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="js/balance.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="home.html">Home</a>
+        <a href="blackjack.html">Blackjack</a>
+        <a href="roulette.html">Roulette</a>
+        <a href="option3.html">Option 3</a>
+        <a href="option4.html">Option 4</a>
+    </div>
+
+    <div class="content">
+        <div id="profile-wrapper">
+            <div id="profile-icon">👤</div>
+            <div id="dropdown" class="hidden">
+                <div onclick="viewProfile()">View Profile</div>
+                <div onclick="logout()">Logout</div>
+            </div>
+        </div>
+
+        <div x-data="blackjackGame()" x-init="init()" class="game">
+            <h1>Cramble Blackjack</h1>
+            <div id="balance-display">Balance: <span x-text="points.toFixed(2)"></span></div>
+
+            <div id="dealer-hand" class="hand">
+                <h2>Dealer's Hand</h2>
+                <template x-for="card in dealerCards" :key="card.code">
+                    <img :src="card.showback ? BACK_CARD : card.image" :alt="card.code">
+                </template>
+                <p>Score: <span x-text="dealerScore"></span></p>
+            </div>
+
+            <div id="player-hand" class="hand">
+                <h2>Your Hand</h2>
+                <template x-for="card in playerCards" :key="card.code">
+                    <img :src="card.image" :alt="card.code">
+                </template>
+                <p>Score: <span x-text="playerScore"></span></p>
+            </div>
+
+            <div id="controls">
+                <input type="number" id="bet-input" placeholder="Enter Bet Amount" min="1" x-model.number="betAmount">
+                <button @click="depositPoints()">Deposit</button>
+                <button x-show="!gameStarted" @click="startGame()">Deal Cards</button>
+                <button x-show="gameStarted && playerTurn" @click="hit()">Hit</button>
+                <button x-show="gameStarted && playerTurn" @click="stand()">Stand</button>
+            </div>
+            <p x-text="message"></p>
+        </div>
+    </div>
+
+    <script src="js/blackjack.js"></script>
+    <script>
+        const auth = firebase.auth();
+        const db = firebase.database();
+
+        auth.onAuthStateChanged(user => {
+            if (!user) {
+                window.location.href = "index.html";
+            } else {
+                const icon = document.getElementById("profile-icon");
+                const dropdown = document.getElementById("dropdown");
+
+                db.ref("users/" + user.uid + "/profileImage").once("value")
+                    .then(snapshot => {
+                        const image = snapshot.val();
+                        icon.innerHTML = "";
+
+                        if (image) {
+                            const img = document.createElement("img");
+                            img.src = image;
+                            img.style.width = "100%";
+                            img.style.height = "100%";
+                            img.style.borderRadius = "50%";
+                            icon.appendChild(img);
+                        } else {
+                            icon.textContent = user.email[0].toUpperCase();
+                        }
+
+                        icon.title = user.email;
+                    });
+
+                icon.onclick = () => {
+                    dropdown.classList.toggle("hidden");
+                };
+            }
+        });
+
+        function logout() {
+            auth.signOut().then(() => {
+                window.location.href = "index.html";
+            });
+        }
+
+        function viewProfile() {
+            window.location.href = "profile.html";
+        }
+
+        document.addEventListener("click", (e) => {
+            const wrapper = document.getElementById("profile-wrapper");
+            if (!wrapper.contains(e.target)) {
+                document.getElementById("dropdown").classList.add("hidden");
+            }
+        });
+    </script>
+</body>
+</html>

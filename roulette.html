@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cramble – Roulette</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="layout.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/roulette.css" />
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="js/balance.js"></script>
+
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <a href="home.html">Home</a>
+    <a href="blackjack.html">Blackjack</a>
+    <a href="roulette.html">Roulette</a>
+    <a href="slots.html">Slots</a>
+    <a href="option4.html">Option 4</a>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+    <!-- Top-right profile icon -->
+    <div id="profile-wrapper">
+      <div id="profile-icon">👤</div>
+      <div id="dropdown" class="hidden">
+        <div onclick="viewProfile()">View Profile</div>
+        <div onclick="logout()">Logout</div>
+      </div>
+    </div>
+
+    <!-- Game UI -->
+    <div class="container">
+      <h1>Roulette</h1>
+      <div>Balance: $<span id="balance">0</span></div>
+
+      <div class="wheel-container">
+        <div id="pointer">&#9660;</div>
+        <div id="wheel"></div>
+      </div>
+
+      <div>
+        <select id="betColor">
+          <option value="red">Red</option>
+          <option value="black">Black</option>
+          <option value="green">Green</option>
+        </select>
+        <input type="number" id="betAmount" placeholder="Bet Amount" />
+      </div>
+
+      <div>
+        <button id="placeBet">Spin</button>
+        <button id="deposit">+100 Chips</button>
+        <button id="withdraw">Withdraw All</button>
+      </div>
+
+      <div id="message"></div>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script src="js/roulette.js"></script>
+</body>
+</html>

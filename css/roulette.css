@@ -1,0 +1,109 @@
+body {
+  font-family: sans-serif;
+  background: #1e1e1e;
+  color: white;
+  margin: 0;
+}
+
+    .container {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+
+    .wheel-container {
+      margin: 20px 0;
+      position: relative;
+    }
+
+    #wheel {
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      margin: 0 auto;
+      border: 10px solid #fff;
+      background: conic-gradient(
+        green 0deg 9.73deg,
+        red 9.73deg 19.45deg,
+        black 19.45deg 29.18deg,
+        red 29.18deg 38.91deg,
+        black 38.91deg 48.64deg,
+        red 48.64deg 58.36deg,
+        black 58.36deg 68.09deg,
+        red 68.09deg 77.82deg,
+        black 77.82deg 87.55deg,
+        red 87.55deg 97.27deg,
+        black 97.27deg 107deg,
+        red 107deg 116.73deg,
+        black 116.73deg 126.45deg,
+        red 126.45deg 136.18deg,
+        black 136.18deg 145.91deg,
+        red 145.91deg 155.64deg,
+        black 155.64deg 165.36deg,
+        red 165.36deg 175.09deg,
+        black 175.09deg 184.82deg,
+        red 184.82deg 194.55deg,
+        black 194.55deg 204.27deg,
+        red 204.27deg 214deg,
+        black 214deg 223.73deg,
+        red 223.73deg 233.45deg,
+        black 233.45deg 243.18deg,
+        red 243.18deg 252.91deg,
+        black 252.91deg 262.64deg,
+        red 262.64deg 272.36deg,
+        black 272.36deg 282.09deg,
+        red 282.09deg 291.82deg,
+        black 291.82deg 301.55deg,
+        red 301.55deg 311.27deg,
+        black 311.27deg 321deg,
+        red 321deg 330.73deg,
+        black 330.73deg 340.45deg,
+        red 340.45deg 350.18deg,
+        black 350.18deg 360deg
+      );
+      transition: transform 4s cubic-bezier(0.33, 1, 0.68, 1);
+    }
+    #wheel-container {
+  position: relative;
+}
+
+
+        #pointer {
+    position: absolute;
+    top: -0px;      /* above the wheel */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 30px;
+    color: #fff;
+    z-index: 1000;
+    user-select: none;
+    pointer-events: none;
+        }
+
+
+    button {
+      margin: 10px;
+      padding: 10px 15px;
+      background-color: #333;
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+
+    button:hover {
+      background-color: #555;
+    }
+
+    input, select {
+      padding: 8px;
+      border-radius: 5px;
+      margin: 5px;
+    }
+
+    #message {
+      margin-top: 20px;
+      font-size: 1.1em;
+    }
