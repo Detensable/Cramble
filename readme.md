@@ -23,36 +23,6 @@ This site has Github Pages! Play the game [here!](https://detensable.github.io/C
 
 ---
 
-## 🧱 File Structure
-
-```bash
-/
-├── index.html             # Login page
-├── home.html              # Main landing page after login
-├── profile.html           # User profile view
-├── blackjack.html         # Blackjack game (Option 1)
-├── roulette.html          # Roulette game (Option 2)
-├── slots.html             # Slots game (Option 3)
-├── firebase-config.js     # Your Firebase project config
-├── css/
-│   ├── blackjack.css
-│   ├── roulette.css
-│   ├── layout.css             # Global layout styles (sidebar, profile)
-│   ├── style.css              # Shared component styles
-│   ├── home.css
-│   ├── login.css
-│   └── slots.css
-├── js/
-│   ├── blackjack.js
-│   ├── roulette.js
-│   ├── slots.js
-│   ├── home.js
-│   ├── login.js
-│   └── balance.js         # (Optional helper for shared balance logic)
-```
-
----
-
 ## 🔧 Setup Instructions
 
 1. **Clone the repo or download manually**
