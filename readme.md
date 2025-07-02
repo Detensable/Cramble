@@ -33,17 +33,21 @@ This site has Github Pages! Play the game [here!](https://detensable.github.io/C
 ├── blackjack.html         # Blackjack game (Option 1)
 ├── roulette.html          # Roulette game (Option 2)
 ├── slots.html             # Slots game (Option 3)
-├── layout.css             # Global layout styles (sidebar, profile)
-├── style.css              # Shared component styles
 ├── firebase-config.js     # Your Firebase project config
 ├── css/
 │   ├── blackjack.css
 │   ├── roulette.css
+│   ├── layout.css             # Global layout styles (sidebar, profile)
+│   ├── style.css              # Shared component styles
+│   ├── home.css
+│   ├── login.css
 │   └── slots.css
 ├── js/
 │   ├── blackjack.js
 │   ├── roulette.js
 │   ├── slots.js
+│   ├── home.js
+│   ├── login.js
 │   └── balance.js         # (Optional helper for shared balance logic)
 ```
 
