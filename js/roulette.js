@@ -63,15 +63,16 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  function logout() {
-    auth.signOut().then(() => {
-      window.location.href = "index.html";
-    });
-  }
+window.logout = function () {
+  auth.signOut().then(() => {
+    window.location.href = "index.html";
+  });
+};
 
-  function viewProfile() {
-    window.location.href = "profile.html";
-  }
+window.viewProfile = function () {
+  window.location.href = "profile.html";
+};
+
 
   document.addEventListener("click", (e) => {
     const wrapper = document.getElementById("profile-wrapper");

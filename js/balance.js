@@ -18,6 +18,7 @@ const balanceUtils = (() => {
       db.ref("users/" + user.uid + "/points").set(newAmount);
     }
   }
+  
 
   function updateBalance(change, callback) {
     getBalance(current => {
