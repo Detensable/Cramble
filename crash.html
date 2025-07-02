@@ -3,23 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cramble – Roulette</title>
-
-  <!-- Styles -->
+  <title>Crash – Cramble</title>
   <link rel="stylesheet" href="css/layout.css" />
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/roulette.css" />
-
-  <!-- Firebase SDK -->
+  <link rel="stylesheet" href="css/crash.css" />
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
   <script src="firebase-config.js"></script>
-  <script src="js/balance.js"></script>
-
 </head>
 <body>
-  <!-- Sidebar -->
   <div class="sidebar">
     <a href="home.html">Home</a>
     <a href="blackjack.html">Blackjack</a>
@@ -29,9 +21,8 @@
     <a href="crash.html">Crash</a>
   </div>
 
-  <!-- Content -->
   <div class="content">
-    <!-- Top-right profile icon -->
+    <!-- Profile -->
     <div id="profile-wrapper">
       <div id="profile-icon">👤</div>
       <div id="dropdown" class="hidden">
@@ -40,34 +31,27 @@
       </div>
     </div>
 
-    <!-- Game UI -->
+    <!-- Crash Game -->
     <div class="container">
-      <h1>Roulette</h1>
-      <div>Balance: $<span id="balance">0</span></div>
+      <h1>🚀 Crash</h1>
+      <div class="multiplier" id="multiplier">1.00x</div>
 
-      <div class="wheel-container">
-        <div id="pointer">&#9660;</div>
-        <div id="wheel"></div>
+      <div class="controls">
+        <input type="number" id="betAmount" placeholder="Enter bet" min="1" />
+        <button id="startBtn">Start</button>
+        <button id="cashOutBtn" disabled>Cash Out</button>
+
+        <div class="auto-cashout">
+          <label><input type="checkbox" id="autoToggle"/>Auto Cash Out</label>
+          <input type="number" id="autoMultiplier" placeholder="e.g. 2.00" min="1" step="0.01" />
+        </div>
       </div>
 
-      <div>
-        <select id="betColor">
-          <option value="red">Red</option>
-          <option value="black">Black</option>
-          <option value="green">Green</option>
-        </select>
-        <input type="number" id="betAmount" placeholder="Bet Amount" />
-      </div>
-
-      <div>
-        <button id="placeBet">Spin</button>
-      </div>
-
-      <div id="message"></div>
+      <div class="status" id="status"></div>
+      <canvas id="crashCanvas" width="600" height="300"></canvas>
     </div>
   </div>
 
-  <!-- Script -->
-  <script src="js/roulette.js"></script>
+  <script src="js/crash.js"></script>
 </body>
 </html>

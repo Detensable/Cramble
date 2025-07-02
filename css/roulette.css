@@ -5,13 +5,12 @@ body {
   margin: 0;
 }
 
-    .container {
+  .container {
   text-align: center;
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
 }
-
 
     .wheel-container {
       margin: 20px 0;
@@ -70,7 +69,7 @@ body {
 }
 
 
-        #pointer {
+    #pointer {
     position: absolute;
     top: -0px;      /* above the wheel */
     left: 50%;
@@ -81,7 +80,6 @@ body {
     user-select: none;
     pointer-events: none;
         }
-
 
     button {
       margin: 10px;
