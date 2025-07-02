@@ -91,7 +91,7 @@ firebase.initializeApp(firebaseConfig);
 
 ---
 
-## 📸 Screenshots (optional)
+## 📸 Screenshots
 
 | Home               | Blackjack        | Roulette               | Slots               |
 | ------------------ | ---------------- | ---------------------- | ------------------- |
