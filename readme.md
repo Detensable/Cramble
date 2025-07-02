@@ -2,7 +2,7 @@
 
 **Cramble** is a Firebase-powered web app where users can play games like **Blackjack**, **Roulette**, and **Slots** while earning and managing points (tokens). It features user authentication, persistent balances, and a sidebar navigation system.
 
-This site has Github Pages! Play the game [here!](https://github.com)
+This site has Github Pages! Play the game [here!](https://detensable.github.io/Cramble/)
 
 ---
 
