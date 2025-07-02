@@ -14,42 +14,14 @@ This site has Github Pages! Play the game [here!](https://detensable.github.io/C
 
   * Blackjack 
   * Roulette 
-  * Slots 
+  * Slots
+  * Dice
+  * Crash
   * AND MORE COMING!!!
 * 📂 **Persistent Balance** – Balance is shared across all games
 * 👤 **Profile System** – Upload profile image & view profile
 * 🧭 **Sidebar Menu** – Quick access to all game pages
 * ⚙️ **Responsive Layout** – Clean design with top-right user controls
-
----
-
-## 🧱 File Structure
-
-```bash
-/
-├── index.html             # Login page
-├── home.html              # Main landing page after login
-├── profile.html           # User profile view
-├── blackjack.html         # Blackjack game (Option 1)
-├── roulette.html          # Roulette game (Option 2)
-├── slots.html             # Slots game (Option 3)
-├── firebase-config.js     # Your Firebase project config
-├── css/
-│   ├── blackjack.css
-│   ├── roulette.css
-│   ├── layout.css             # Global layout styles (sidebar, profile)
-│   ├── style.css              # Shared component styles
-│   ├── home.css
-│   ├── login.css
-│   └── slots.css
-├── js/
-│   ├── blackjack.js
-│   ├── roulette.js
-│   ├── slots.js
-│   ├── home.js
-│   ├── login.js
-│   └── balance.js         # (Optional helper for shared balance logic)
-```
 
 ---
 
@@ -84,6 +56,14 @@ firebase.initializeApp(firebaseConfig);
    * Enable **Realtime Database**
 
 4. **Open `index.html`** to start the login flow 
+
+---
+
+## ✨ Customization
+
+* 💰 Change default starting points in Firebase `.once("value")` fallback
+* 🎲 Add more games by duplicating templates and updating the sidebar
+* 🏆 Build a leaderboard by reading all user `points` from the DB
 
 ---
 
