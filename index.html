@@ -2,25 +2,36 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cramble Login</title>
-  <link rel="stylesheet" href="style.css" />
-<!-- Firebase SDK's -->
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-<!-- Firebase config -->
-<script src="firebase-config.js"></script>
-<!-- App logic -->
-<script src="app.js"></script>
+  <link rel="stylesheet" href="css/login.css" />
 
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
+  <!-- Firebase Config -->
+  <script src="firebase-config.js"></script>
+
+  <!-- Login Logic -->
+  <script defer src="js/login.js"></script>
 </head>
 <body>
-  <div class="container">
-    <h1>Cramble</h1>
-    <input type="email" id="email" placeholder="Email" />
-    <input type="password" id="password" placeholder="Password" />
-    <button onclick="signIn()">Sign In</button>
-    <button onclick="signUp()">Sign Up</button>
-    <p id="message"></p>
+  <div class="login-container">
+    <div class="login-box">
+      <h1>Cramble</h1>
+      <p class="subtitle">Sign in to play and earn points</p>
+
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Password" required />
+
+      <div class="buttons">
+        <button onclick="signIn()">Sign In</button>
+        <button onclick="signUp()">Sign Up</button>
+      </div>
+
+      <p id="message" class="message"></p>
+    </div>
   </div>
 </body>
 </html>
