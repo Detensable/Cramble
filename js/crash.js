@@ -52,10 +52,15 @@ auth.onAuthStateChanged(user => {
       dropdown.classList.toggle("hidden");
     };
 
-    // Get balance from DB
-    db.ref("users/" + user.uid + "/points").on("value", snapshot => {
-      userBalance = snapshot.val() || 0;
-    });
+   db.ref("users/" + user.uid + "/points").on("value", snapshot => {
+  userBalance = snapshot.val() || 0;
+
+  // Update balance display
+  const balanceEl = document.getElementById("balance-display");
+  if (balanceEl) {
+    balanceEl.textContent = `Balance: $${userBalance.toFixed(2)}`;
+  }
+});
   }
 });
 

@@ -142,3 +142,9 @@ canvas {
 .hidden {
   display: none;
 }
+
+#balance-display {
+  font-size: 18px;
+  margin-top: 10px;
+  color: #ccc;
+}
