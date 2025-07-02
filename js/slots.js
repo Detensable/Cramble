@@ -12,7 +12,6 @@ const lever = document.getElementById("lever");
 const betInput = document.getElementById("betAmount");
 const balanceDisplay = document.getElementById("balance");
 const message = document.getElementById("message");
-const withdrawBtn = document.getElementById("withdrawBtn");
 
 let spinning = false;
 
@@ -153,11 +152,3 @@ lever.addEventListener("click", () => {
   }, 150);
 });
 
-// Withdraw button
-withdrawBtn.addEventListener("click", () => {
-  if (confirm("Withdraw all funds and reset to $1000?")) {
-    balance = 1000;
-    updateBalanceDisplay();
-    message.textContent = "💸 Balance reset.";
-  }
-});

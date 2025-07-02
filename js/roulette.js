@@ -81,18 +81,6 @@ window.viewProfile = function () {
     }
   });
 
-  // Game logic
-  document.getElementById("deposit").onclick = () => {
-    balance += 100;
-    updateBalanceDisplay();
-  };
-
-  document.getElementById("withdraw").onclick = () => {
-    balance = 0;
-    updateBalanceDisplay();
-    messageEl.textContent = "You withdrew all your chips!";
-  };
-
   document.getElementById("placeBet").onclick = () => {
     const placeBetBtn = document.getElementById("placeBet");
     const betColor = document.getElementById("betColor").value;

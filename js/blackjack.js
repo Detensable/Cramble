@@ -51,7 +51,7 @@ function blackjackGame() {
                         icon.title = user.email;
                     });
 
-                    icon.onclick = () => {
+                    icon.onclick = () => {  
                         dropdown.classList.toggle("hidden");
                     };
 

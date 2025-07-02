@@ -87,14 +87,6 @@ firebase.initializeApp(firebaseConfig);
 
 ---
 
-## ✨ Customization
-
-* 💰 Change default starting points in Firebase `.once("value")` fallback
-* 🎲 Add more games by duplicating templates and updating the sidebar
-* 🏆 Build a leaderboard by reading all user `points` from the DB
-
----
-
 ## 📸 Screenshots
 
 | Home               | Blackjack        | Roulette               | Slots               |

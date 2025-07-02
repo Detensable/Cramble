@@ -1,0 +1,203 @@
+body {
+  background-color: #0d0f1a;
+  color: white;
+  font-family: sans-serif;
+  margin: 0;
+}
+
+.dice-container {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  min-height: 300px; /* optional guard */
+}
+
+
+#balance {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+.dice-ui {
+  background: #1a1d2d;
+  border: 1px solid #2e2f44;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+h1 {
+  color: #34c77b;
+  margin-bottom: 20px;
+}
+
+.toggle-row {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.toggle label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.toggle input {
+  appearance: none;
+  width: 50px;
+  height: 24px;
+  background: #ccc;
+  border-radius: 20px;
+  position: relative;
+  outline: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.toggle input::before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 2px;
+  left: 2px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+
+.toggle input:checked {
+  background: #34c77b;
+}
+
+.toggle input:checked::before {
+  transform: translateX(26px);
+}
+
+.slider-row {
+  margin: 20px 0;
+  position: relative;
+}
+
+#target {
+  width: 100%;
+  appearance: none;
+  height: 10px;
+  border-radius: 10px;
+  background: linear-gradient(to right, red 50%, green 50%);
+  outline: none;
+  transition: background 0.3s;
+}
+
+#target::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border: 2px solid #34c77b;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+#target::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border: 2px solid #34c77b;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+
+.payout-row {
+  font-size: 1.1rem;
+  color: #f1c40f;
+  margin-bottom: 20px;
+}
+
+.bet-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.bet-row input {
+  padding: 10px;
+  width: 100px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  background: #2a2d3c;
+  color: white;
+}
+
+.bet-row button {
+  padding: 10px 20px;
+  background: #34c77b;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+}
+
+.bet-row button:hover {
+  background: #2ab96a;
+}
+
+.result {
+  margin-top: 20px;
+}
+
+#rollDisplay {
+  font-size: 2.8rem;
+  color: #00d8ff;
+  margin-bottom: 10px;
+}
+
+#message {
+  font-size: 1.1rem;
+  color: #ccc;
+}
+
+.slider-indicator {
+  position: relative;
+  height: 20px;
+  margin-bottom: 10px;
+  width: 100%;
+  pointer-events: none; /* So it's not clickable */
+}
+
+#rollPointer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateX(-50%);
+  transition: left 0.5s ease;
+  text-align: center;
+  width: 40px;
+}
+
+#diceIcon {
+  font-size: 22px;
+  width: 40px;
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+  transition: transform 0.5s ease;
+}
+
+.arrow-down {
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 10px solid #fff;
+  margin: 0 auto;
+}

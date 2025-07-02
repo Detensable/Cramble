@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cramble – Dice</title>
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/dice.css" />
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script src="firebase-config.js"></script>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <a href="home.html">Home</a>
+    <a href="blackjack.html">Blackjack</a>
+    <a href="roulette.html">Roulette</a>
+    <a href="slots.html">Slots</a>
+    <a href="dice.html">Dice</a>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+    <!-- Profile Icon -->
+    <div id="profile-wrapper">
+      <div id="profile-icon">👤</div>
+      <div id="dropdown" class="hidden">
+        <div onclick="viewProfile()">View Profile</div>
+        <div onclick="logout()">Logout</div>
+      </div>
+    </div>
+
+    <div class="dice-container">
+      <h1>🎲 Dice</h1>
+      <div id="balance">Balance: $0.00</div>
+
+      <div class="dice-ui">
+        <!-- Dice Pointer -->
+        <div class="slider-indicator">
+          <div id="rollPointer">
+            <div id="diceIcon">🎲</div>
+            <div class="arrow-down"></div>
+          </div>
+        </div>
+
+        <!-- Slider Control -->
+        <div class="slider-row">
+          <label for="target">Target: <span id="targetDisplay">50.00</span></label>
+          <input type="range" id="target" min="1" max="99" step="0.01" value="50" />
+        </div>
+
+        <!-- Payout -->
+        <div class="payout-row">
+          Payout: <span id="payout">1.98x</span>
+        </div>
+
+        <!-- Betting -->
+        <div class="bet-row">
+          Bet: <input type="number" id="betAmount" value="10" min="0.01" step="0.01" />
+          <button id="rollBtn">Roll 🎯</button>
+        </div>
+
+        <!-- Result -->
+        <div class="result">
+          <div id="rollDisplay">–</div>
+          <div id="message"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/dice.js"></script>
+</body>
+</html>

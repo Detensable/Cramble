@@ -84,3 +84,71 @@ body {
 .hidden {
   display: none;
 }
+#redeem-btn {
+  margin: 30px auto 0;
+  display: block;
+  background: #007bff;
+  color: white;
+  border: none;
+  font-size: 16px;
+  padding: 12px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#redeem-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.popup-content {
+  background: #1e1e2f;
+  padding: 30px;
+  border-radius: 12px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+
+.popup-content h2 {
+  color: #61dafb;
+  margin-bottom: 15px;
+}
+
+#redeem-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #555;
+  background: #111;
+  color: white;
+  margin-bottom: 15px;
+}
+
+#submit-redeem {
+  background: #28a745;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#redeem-message {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.hidden {
+  display: none;
+}
