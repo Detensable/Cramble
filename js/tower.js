@@ -8,7 +8,7 @@ let currentMultiplier = 1;
 let revealed = [];
 let path = [];
 
-const balanceDisplay = document.getElementById("balance");
+const balanceDisplay = document.getElementById("balanceDisplay");
 const tower = document.getElementById("tower");
 const difficultySelect = document.getElementById("difficulty");
 const startBtn = document.getElementById("startBtn");
@@ -17,9 +17,9 @@ const multiplierDisplay = document.getElementById("multiplierDisplay");
 const result = document.getElementById("result");
 
 const difficulties = {
-  easy: { tiles: 4, bombs: 1, multipliers: [1.31, 1.72, 2.26, 2.96, 3.87, 5.05, 6.60, 8.63, 13.05] },
+  easy:   { tiles: 4, bombs: 1, multipliers: [1.31, 1.72, 2.26, 2.96, 3.87, 5.05, 6.60, 8.63, 13.05] },
   medium: { tiles: 3, bombs: 1, multipliers: [1.5, 2.25, 3.38, 5.07, 7.61, 11.42, 17.13, 25.7, 38.55] },
-  hard: { tiles: 2, bombs: 1, multipliers: [2, 4, 8, 16, 32, 64, 128, 256, 512] },
+  hard:   { tiles: 2, bombs: 1, multipliers: [2, 4, 8, 16, 32, 64, 128, 256, 512] },
   expert: { tiles: 3, bombs: 2, multipliers: [3, 9, 27, 81, 243, 729, 2187, 6561, 19243] },
   master: { tiles: 4, bombs: 3, multipliers: [4, 16, 64, 256, 1024, 4096, 16384, 65536, 256901] }
 };
@@ -29,10 +29,14 @@ auth.onAuthStateChanged(user => {
     window.location.href = "index.html";
     return;
   }
+
+  console.log("User logged in:", user.email);
   currentUser = user;
 
   db.ref("users/" + user.uid + "/points").on("value", snapshot => {
-    balance = snapshot.val() || 1000;
+    const val = snapshot.val();
+    balance = val !== null ? val : 1000;
+    console.log("Fetched balance:", balance);
     updateBalanceDisplay();
   });
 
@@ -69,13 +73,11 @@ document.addEventListener("click", e => {
 
 function updateBalanceDisplay() {
   const value = balance.toFixed(2);
-  const top = document.getElementById("balanceTop");
-  const game = document.getElementById("balanceGame");
-
-  if (top) top.textContent = value;
-  if (game) game.textContent = value;
-
-  db.ref("users/" + currentUser.uid + "/points").set(balance);
+  console.log("Updating balance UI to:", value);
+  if (balanceDisplay) balanceDisplay.textContent = value;
+  if (currentUser) {
+    db.ref("users/" + currentUser.uid + "/points").set(balance);
+  }
 }
 
 function logout() {

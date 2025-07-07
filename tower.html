@@ -151,16 +151,6 @@
     #dropdown button:hover {
       background-color: #333;
     }
-
-    #balance-container {
-      position: fixed;
-      top: 20px;
-      left: 220px;
-      color: #00ff99;
-      font-size: 18px;
-      font-family: 'Segoe UI', sans-serif;
-      z-index: 11;
-    }
   </style>
 </head>
 <body>
@@ -171,6 +161,7 @@
     <a href="slots.html">Slots</a>
     <a href="dice.html">Dice</a>
     <a href="crash.html">Crash</a>
+    <a href="tower.html">Tower</a>
   </div>
   <div id="profile-wrapper">
     <div id="profile-icon"></div>
@@ -179,25 +170,31 @@
       <button onclick="logout()">Logout</button>
     </div>
   </div>
-  <div id="balance-container">Balance: $<span id="balanceDisplay">0</span></div>
+
   <div class="game-container">
-    <h1>Dragon Tower</h1>
-    <div class="controls">
-      <label>Bet: <input id="bet" type="number" value="10" /></label>
-      <label>
-        Difficulty:
-        <select id="difficulty">
-          <option value="easy">Easy</option>
-          <option value="medium">Medium</option>
-          <option value="hard">Hard</option>
-          <option value="expert">Expert</option>
-          <option value="master">Master</option>
-        </select>
-      </label>
-      <button id="startBtn">Start Game</button>
-      <button id="cashoutBtn" disabled>Cash Out</button>
-      <div id="multiplierDisplay">Multiplier: 1.00×</div>
-    </div>
+  <h1>Dragon Tower</h1>
+
+  <div id="balance-container" style="margin: 10px 0 20px; font-size: 20px; color: #00ff99;">
+    Balance: $<span id="balanceDisplay">0</span>
+  </div>
+
+  <div class="controls">
+    <label>Bet: <input id="bet" type="number" value="10" /></label>
+    <label>
+      Difficulty:
+      <select id="difficulty">
+        <option value="easy">Easy</option>
+        <option value="medium">Medium</option>
+        <option value="hard">Hard</option>
+        <option value="expert">Expert</option>
+        <option value="master">Master</option>
+      </select>
+    </label>
+    <button id="startBtn">Start Game</button>
+    <button id="cashoutBtn" disabled>Cash Out</button>
+    <div id="multiplierDisplay">Multiplier: 1.00×</div>
+  </div>
+
     <div id="tower" class="tower"></div>
     <div id="result" class="result"></div>
   </div>
