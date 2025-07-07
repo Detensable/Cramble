@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Cases Game - Cramble</title>
+<link rel="stylesheet" href="css/cases.css" />
+</head>
+<body>
+
+  <h1>Cases Game</h1>
+  <div class="balance">Balance: <span id="balance">1000</span> credits</div>
+
+  <div class="controls">
+    <label for="difficulty">Difficulty:</label>
+    <select id="difficulty" aria-label="Difficulty Level">
+      <option value="easy" selected>Easy</option>
+      <option value="medium">Medium</option>
+      <option value="hard">Hard</option>
+      <option value="expert">Expert</option>
+    </select>
+
+    <label for="bet">Bet:</label>
+    <input type="number" id="bet" min="1" max="1000" value="10" step="1" />
+
+    <button id="crackBtn">Crack Open</button>
+  </div>
+
+  <div class="controls">
+    <label for="autoRounds">Auto-Rounds:</label>
+    <input type="number" id="autoRounds" min="1" max="1000" value="10" step="1" />
+
+    <button id="startAutoBtn">Start Auto Play</button>
+    <button id="stopAutoBtn" disabled>Stop Auto Play</button>
+  </div>
+
+  <div class="case-reel" aria-live="polite" aria-label="Cases spinning reel">
+  <div class="arrow-down" aria-hidden="true"></div>
+  <div class="reel-strip" id="reelStrip">
+    <!-- cases will be populated here by JS -->
+  </div>
+</div>
+
+
+  <div class="status" id="statusMessage"></div>
+
+<script src="js/cases.js"></script>
+</body>
+</html>

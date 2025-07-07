@@ -1,0 +1,171 @@
+/* Base styling for layout */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #121212;
+  color: #eee;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+h1 {
+  margin-bottom: 10px;
+}
+.balance {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+}
+
+/* Controls panel */
+.controls {
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+}
+label {
+  font-size: 0.9rem;
+}
+select, input[type=number] {
+  font-size: 1rem;
+  padding: 5px;
+  width: 90px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+}
+button {
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  background: #00aaff;
+  color: #fff;
+  transition: background-color 0.3s;
+}
+button:hover:not(:disabled) {
+  background: #0088cc;
+}
+button:disabled {
+  background: #555;
+  cursor: not-allowed;
+}
+
+/* Case reel container */
+.case-reel {
+  width: 600px;
+  height: 110px;
+  overflow: hidden;
+  border: 2px solid #00aaff;
+  border-radius: 15px;
+  background: #222;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-bottom: 25px;
+}
+
+/* Reel inner strip (flex row with multiple cases) */
+.reel-strip {
+  display: flex;
+  align-items: center;
+  transition: transform 2.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Each case tile */
+.case-tile {
+  width: 100px;
+  height: 100px;
+  border-radius: 12px;
+  margin: 0 5px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  box-shadow: 0 0 10px #000 inset;
+  position: relative;
+}
+.case-icon {
+  font-size: 2rem;
+  margin-bottom: 6px;
+}
+
+/* Highlight the center case 
+.case-reel::before {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110px;
+  border-left: 2px solid #00ffff;
+  border-right: 2px solid #00ffff;
+  pointer-events: none;
+  box-shadow:
+    0 0 15px 2px #00ffff,
+    inset 0 0 20px 2px #00ffff;
+  border-radius: 15px;
+} */
+
+/* Color coding by multiplier tiers */
+.multiplier-23x { background: #d80000; } /* bright red */
+.multiplier-10x { background: #ff6600; } /* orange */
+.multiplier-3x  { background: #ffaa00; } /* gold */
+.multiplier-2x  { background: #33cc33; } /* green */
+.multiplier-1_09x { background: #3399ff; } /* blue */
+.multiplier-0_4x { background: #6666ff; } /* purple */
+.multiplier-0_1x { background: #666666; } /* dark gray */
+
+/* Medium */
+.multiplier-115x { background: #b30000; }
+.multiplier-41x  { background: #cc3300; }
+.multiplier-15x  { background: #ff8000; }
+.multiplier-7_5x { background: #009900; }
+.multiplier-3_5x { background: #00cc00; }
+.multiplier-1_5x { background: #0066cc; }
+.multiplier-0_2x { background: #333366; }
+.multiplier-0x   { background: #222222; }
+
+/* Hard */
+.multiplier-1000x { background: #800000; }
+.multiplier-495x  { background: #a52a2a; }
+.multiplier-250x  { background: #b22222; }
+.multiplier-50x   { background: #cc3300; }
+.multiplier-35x   { background: #ff4500; }
+.multiplier-8x    { background: #228b22; }
+.multiplier-0x_hard   { background: #111111; }
+
+/* Expert */
+.multiplier-10000x { background: #660000; }
+.multiplier-3500x  { background: #7f0000; }
+.multiplier-1500x  { background: #8b0000; }
+.multiplier-0x_expert   { background: #000000; }
+
+/* Autoplay status */
+.status {
+  margin-top: 10px;
+  font-style: italic;
+}
+.arrow-down {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+border-left: 15px solid transparent;
+border-right: 15px solid transparent;
+border-top: 20px solid red; /* points up */
+  pointer-events: none;
+  z-index: 10;
+}
