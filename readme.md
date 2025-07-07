@@ -4,6 +4,9 @@
 
 This site has Github Pages! Play the game [here!](https://detensable.github.io/Cramble/)
 
+If you encounter an error, bug, or anything that needs to be looked at, create an [issue](https://github.com/Detensable/Cramble/issues) with your bug, how to replicate it, and a screenshot/video.
+Your bug reports help make the site better! 
+
 ---
 
 ## 🚀 Features
