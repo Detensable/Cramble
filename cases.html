@@ -3,8 +3,12 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Cases Game - Cramble</title>
+<link rel="stylesheet" href="css/layout.css" />
 <link rel="stylesheet" href="css/cases.css" />
+<title>Cases Game - Cramble</title>
+<style>
+
+</style>
 </head>
 <body>
 
@@ -35,15 +39,14 @@
   </div>
 
   <div class="case-reel" aria-live="polite" aria-label="Cases spinning reel">
-  <div class="arrow-down" aria-hidden="true"></div>
-  <div class="reel-strip" id="reelStrip">
-    <!-- cases will be populated here by JS -->
+    <div class="arrow-down" aria-hidden="true"></div>
+    <div class="reel-strip" id="reelStrip">
+      <!-- cases will be populated here by JS -->
+    </div>
   </div>
-</div>
-
 
   <div class="status" id="statusMessage"></div>
 
-<script src="js/cases.js"></script>
+  <script src="js/cases.js"></script>
 </body>
 </html>

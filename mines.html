@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cramble Mines</title>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <link rel="stylesheet" href="css/mines.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+</head>
+<body>
+  <div class="sidebar">
+    <a href="home.html">Home</a>
+    <a href="blackjack.html">Blackjack</a>
+    <a href="roulette.html">Roulette</a>
+    <a href="slots.html">Slots</a>
+    <a href="dice.html">Dice</a>
+    <a href="crash.html">Crash</a>
+    <a href="tower.html">Tower</a>
+    <a href="mines.html">Mines</a>
+  </div>
+
+  <div class="content">
+    <!-- Put your top-right profile here or anywhere inside body -->
+    <div id="profile-wrapper">
+      <div id="profile-icon">U</div>
+      <div id="dropdown" class="hidden">
+        <div onclick="viewProfile()">View Profile</div>
+        <div onclick="logout()">Logout</div>
+      </div>
+    </div>
+
+    <!-- Mines container -->
+    <div class="mines-container" style="transform: none; max-width:none; ">
+      <div>
+        <div class="mode-toggle">
+          <button id="manualBtn" class="active">Manual</button>
+          <button id="autoBtn">Auto</button>
+        </div>
+
+        <div class="balance-display">Balance: $<span id="balance"></span></div>
+
+        <!-- Manual Controls -->
+        <div class="controls" id="manualControls">
+          <label>Amount</label>
+          <input type="number" id="betAmount" min="0" step="0.01" value="1.00" />
+          
+          <label>Mines</label>
+          <input type="number" id="mineCountInput" min="1" max="24" value="3" />
+          
+          <button id="playBtn">Play</button>
+          <button id="cashOutBtn" disabled>Cash Out</button>
+
+          <div class="profit">
+            Total Profit: <span id="profit">0.00</span>
+          </div>
+        </div>
+
+        <!-- Auto Controls -->
+        <div class="controls hidden" id="autoControls">
+          <label>Amount</label>
+          <input type="number" id="autoBet" min="0" step="0.01" value="1.00" />
+          
+          <label>Mines</label>
+          <input type="number" id="autoMineCount" min="1" max="24" value="3" />
+
+          <label>Number of Plays</label>
+          <input type="number" id="autoPlays" min="1" value="10" />
+
+          <button id="startAutoBtn">Start Auto</button>
+          <button id="stopAutoBtn" disabled>Stop</button>
+        </div>
+      </div>
+
+      <div class="grid" id="grid"></div>
+    </div>
+  </div>
+
+  <script src="js/mines.js"></script>
+</body>
+</html>

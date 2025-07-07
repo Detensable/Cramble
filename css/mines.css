@@ -1,0 +1,120 @@
+body {
+  background-color: #0f1f2d;
+  color: white;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  display: flex;
+  height: 100vh;
+}
+
+
+.mines-container {
+  display: flex;
+  width: 95%;
+  max-width: 1300px;
+  gap: 30px;
+  transform: scale(1.2);
+  justify-content: center;
+ align-items: center; 
+}
+
+.mines-container .sidebar {
+  width: 280px;
+  background-color: #172b3a;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.mines-container .mode-toggle {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.mines-container .mode-toggle button {
+  flex: 1;
+  padding: 12px;
+  background: #243c50;
+  color: #fff;
+  border: none;
+  margin-right: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.mines-container .mode-toggle .active {
+  background: #0fa34a;
+}
+
+.mines-container .controls {
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+}
+
+.mines-container .controls label {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.mines-container .controls input,
+.mines-container .controls select {
+  padding: 10px;
+  border: none;
+  background-color: #243c50;
+  color: white;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.mines-container .controls button {
+  margin-top: 12px;
+  background-color: #00ff66;
+  color: black;
+  font-weight: bold;
+  padding: 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.mines-container .controls button:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+}
+
+.mines-container .grid {
+  display: grid;
+  grid-template-columns: repeat(5, 80px);
+  grid-template-rows: repeat(5, 80px);
+  gap: 15px;
+  background-color: #172b3a;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.mines-container .tile {
+  background-color: #243c50;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  user-select: none;
+}
+
+.mines-container .tile.revealed {
+  cursor: default;
+}
+
+.mines-container .profit {
+  margin-top: 15px;
+  font-size: 18px;
+}
+
+.mines-container .hidden {
+  display: none;
+}
