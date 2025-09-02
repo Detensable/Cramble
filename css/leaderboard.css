@@ -1,0 +1,126 @@
+/* Body & Layout */
+body {
+  margin: 0;
+  font-family: sans-serif;
+  display: flex;
+  min-height: 100vh;
+  background-color: #121212;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 140px;
+  background-color: #20232a;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.5);
+}
+
+.sidebar a {
+  padding: 15px 20px;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.sidebar a:hover {
+  background-color: #333842;
+  color: #61dafb;
+  border-radius: 8px 0 0 8px;
+}
+
+/* Main Content */
+.content {
+  flex: 1;
+  padding: 40px;
+  position: relative;
+}
+
+/* Leaderboard Styling */
+.leaderboard {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background: #1c1c1c;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.5);
+  color: white;
+}
+
+.leaderboard h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.leaderboard table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.leaderboard th, .leaderboard td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #333;
+}
+
+.leaderboard tr:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+/* Top-right profile */
+#profile-wrapper {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  z-index: 1000;
+}
+
+#profile-icon {
+  background-color: #007bff;
+  color: white;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+#dropdown {
+  margin-top: 8px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  width: 130px;
+  text-align: left;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  z-index: 999;
+}
+
+#dropdown div {
+  padding: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+#dropdown div:hover {
+  background-color: #f0f0f0;
+}
+
+.hidden {
+  display: none;
+}

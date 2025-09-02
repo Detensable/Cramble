@@ -16,6 +16,7 @@
 <body>
   <div class="sidebar">
     <a href="home.html">Home</a>
+    <a href="leaderboard.html">Leaderboard</a>
     <a href="blackjack.html">Blackjack</a>
     <a href="roulette.html">Roulette</a>
     <a href="slots.html">Slots</a>
@@ -23,6 +24,7 @@
     <a href="crash.html">Crash</a>
     <a href="tower.html">Tower</a>
     <a href="mines.html">Mines</a>
+    <a href="cases.html">Cases</a>
   </div>
 
 
@@ -61,6 +63,8 @@
                 <button x-show="!gameStarted" @click="startGame()">Deal Cards</button>
                 <button x-show="gameStarted && playerTurn" @click="hit()">Hit</button>
                 <button x-show="gameStarted && playerTurn" @click="stand()">Stand</button>
+                <button x-show="gameStarted && playerTurn && canDouble()" @click="doubleDown()">Double</button>
+                <button x-show="gameStarted && playerTurn && canSplit()" @click="split()">Split</button>
             </div>
             <p x-text="message"></p>
         </div>

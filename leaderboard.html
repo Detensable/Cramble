@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cramble – Leaderboard</title>
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/leaderboard.css">
+<body>
+  <div class="sidebar">
+    <a href="home.html">Home</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="blackjack.html">Blackjack</a>
+    <a href="roulette.html">Roulette</a>
+    <a href="slots.html">Slots</a>
+    <a href="dice.html">Dice</a>
+    <a href="crash.html">Crash</a>
+    <a href="tower.html">Tower</a>
+    <a href="mines.html">Mines</a>
+    <a href="cases.html">Cases</a>
+  </div>
+
+  <div class="content">
+    <!-- Main page content goes here -->
+    <div class="leaderboard">
+      <h2>🏆 Cramble Leaderboard</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Player</th>
+            <th>Points</th>
+          </tr>
+        </thead>
+        <tbody id="leaderboardBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Profile -->
+  <div id="profile-wrapper">
+    <div id="profile-icon">U</div>
+    <div id="dropdown" class="hidden">
+      <div>Profile</div>
+      <div>Settings</div>
+      <div>Logout</div>
+    </div>
+  </div>
+</body>
+</head>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="js/leaderboard.js"></script>
+
+</html>

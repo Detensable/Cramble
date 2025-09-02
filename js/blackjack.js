@@ -8,6 +8,8 @@ function blackjackGame() {
         deckId: null,
         playerCards: [],
         dealerCards: [],
+        splitHands: [], // store split hands
+        activeHandIndex: 0,
         playerScore: 0,
         dealerScore: 0,
         gameStarted: false,
@@ -27,39 +29,6 @@ function blackjackGame() {
                         const saved = snapshot.val();
                         this.points = saved !== null ? parseFloat(saved) : 1000.00;
                         this.message = 'Click "Deal Cards" to start the game.';
-                    });
-
-                    // profile image logic
-                    const icon = document.getElementById("profile-icon");
-                    const dropdown = document.getElementById("dropdown");
-
-                    db.ref("users/" + user.uid + "/profileImage").once("value").then(snapshot => {
-                        const image = snapshot.val();
-                        icon.innerHTML = "";
-
-                        if (image) {
-                            const img = document.createElement("img");
-                            img.src = image;
-                            img.style.width = "100%";
-                            img.style.height = "100%";
-                            img.style.borderRadius = "50%";
-                            icon.appendChild(img);
-                        } else {
-                            icon.textContent = user.email[0].toUpperCase();
-                        }
-
-                        icon.title = user.email;
-                    });
-
-                    icon.onclick = () => {  
-                        dropdown.classList.toggle("hidden");
-                    };
-
-                    document.addEventListener("click", (e) => {
-                        const wrapper = document.getElementById("profile-wrapper");
-                        if (!wrapper.contains(e.target)) {
-                            document.getElementById("dropdown").classList.add("hidden");
-                        }
                     });
                 }
             });
@@ -91,6 +60,9 @@ function blackjackGame() {
             try {
                 this.playerCards = [];
                 this.dealerCards = [];
+                this.splitHands = [];
+                this.activeHandIndex = 0;
+
                 this.playerCards.push(await this.drawCard());
                 this.dealerCards.push({ image: BACK_CARD, showback: true });
                 this.playerCards.push(await this.drawCard());
@@ -156,22 +128,94 @@ function blackjackGame() {
             return highCount > 21 ? lowCount : highCount;
         },
 
+        // ========== Player Actions ==========
+
         async hit() {
             this.playerCards.push(await this.drawCard());
             this.updateScores();
             if (this.playerScore > 21) {
-                this.message = "You busted!";
-                this.playerTurn = false;
-                this.gameStarted = false;
+                this.message = "Busted!";
+                if (this.splitHands.length) {
+                    await this.nextSplitHand();
+                } else {
+                    this.playerTurn = false;
+                    this.gameStarted = false;
+                }
             }
         },
 
         async stand() {
-            this.playerTurn = false;
-            this.message = "Dealer's turn.";
-            await this.revealDealerCard();
-            await this.dealerTurn();
+            if (this.splitHands.length) {
+                await this.nextSplitHand();
+            } else {
+                this.playerTurn = false;
+                this.message = "Dealer's turn.";
+                await this.revealDealerCard();
+                await this.dealerTurn();
+            }
         },
+
+        canDouble() {
+            return this.playerCards.length === 2 && this.betAmount <= this.points;
+        },
+
+        async doubleDown() {
+            if (!this.canDouble()) return;
+            this.points -= this.betAmount;
+            this.betAmount *= 2;
+            this.updateBalance();
+            this.message = "You doubled down!";
+            this.playerCards.push(await this.drawCard());
+            this.updateScores();
+
+            if (this.playerScore > 21) {
+                this.message = "You busted after doubling!";
+                this.playerTurn = false;
+                this.gameStarted = false;
+            } else {
+                await this.stand();
+            }
+        },
+
+        canSplit() {
+            return (
+                this.playerCards.length === 2 &&
+                this.getCardValue(this.playerCards[0]) === this.getCardValue(this.playerCards[1]) &&
+                this.betAmount <= this.points
+            );
+        },
+
+        async split() {
+            if (!this.canSplit()) return;
+            this.points -= this.betAmount;
+            this.updateBalance();
+
+            this.splitHands = [
+                [this.playerCards[0], await this.drawCard()],
+                [this.playerCards[1], await this.drawCard()]
+            ];
+
+            this.activeHandIndex = 0;
+            this.playerCards = this.splitHands[this.activeHandIndex];
+            this.updateScores();
+            this.message = "Split! Playing first hand.";
+        },
+
+        async nextSplitHand() {
+            this.activeHandIndex++;
+            if (this.activeHandIndex < this.splitHands.length) {
+                this.playerCards = this.splitHands[this.activeHandIndex];
+                this.updateScores();
+                this.message = `Now playing hand ${this.activeHandIndex + 1}`;
+            } else {
+                this.playerTurn = false;
+                this.message = "Dealer's turn with all split hands.";
+                await this.revealDealerCard();
+                await this.dealerTurn();
+            }
+        },
+
+        // ========== Dealer Logic ==========
 
         async revealDealerCard() {
             const newCard = await this.drawCard();
@@ -180,7 +224,7 @@ function blackjackGame() {
         },
 
         async dealerTurn() {
-            while (this.dealerScore < 17) {
+            while (typeof this.dealerScore === "number" && this.dealerScore < 17) {
                 this.dealerCards.push(await this.drawCard());
                 this.updateScores();
             }
@@ -188,19 +232,37 @@ function blackjackGame() {
         },
 
         checkOutcome() {
-            if (this.dealerScore > 21) {
-                this.message = "Dealer busted! You win!";
-                this.points += this.betAmount * 2;
-            } else if (this.dealerScore >= this.playerScore) {
-                this.message = "Dealer wins!";
+            if (this.splitHands.length) {
+                this.splitHands.forEach((hand, i) => {
+                    const score = this.calculateScore(hand);
+                    if (this.dealerScore > 21 && score <= 21) {
+                        this.points += this.betAmount * 2;
+                        this.message = `Hand ${i + 1}: Dealer busted, you win!`;
+                    } else if (score > 21 || this.dealerScore > score) {
+                        this.message = `Hand ${i + 1}: Dealer wins.`;
+                    } else if (score > this.dealerScore) {
+                        this.points += this.betAmount * 2;
+                        this.message = `Hand ${i + 1}: You win!`;
+                    } else {
+                        this.message = `Hand ${i + 1}: Push or dealer wins.`;
+                    }
+                });
             } else {
-                this.message = "You win!";
-                this.points += this.betAmount * 2;
+                if (this.dealerScore > 21) {
+                    this.message = "Dealer busted! You win!";
+                    this.points += this.betAmount * 2;
+                } else if (this.dealerScore >= this.playerScore) {
+                    this.message = "Dealer wins!";
+                } else {
+                    this.message = "You win!";
+                    this.points += this.betAmount * 2;
+                }
             }
-
             this.updateBalance();
             this.gameStarted = false;
         },
+
+        // ========== Balance ==========
 
         updateBalance() {
             if (this.user) {

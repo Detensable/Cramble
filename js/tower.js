@@ -17,11 +17,11 @@ const multiplierDisplay = document.getElementById("multiplierDisplay");
 const result = document.getElementById("result");
 
 const difficulties = {
-  easy:   { tiles: 4, bombs: 1, multipliers: [1.31, 1.72, 2.26, 2.96, 3.87, 5.05, 6.60, 8.63, 13.05] },
-  medium: { tiles: 3, bombs: 1, multipliers: [1.5, 2.25, 3.38, 5.07, 7.61, 11.42, 17.13, 25.7, 38.55] },
-  hard:   { tiles: 2, bombs: 1, multipliers: [2, 4, 8, 16, 32, 64, 128, 256, 512] },
-  expert: { tiles: 3, bombs: 2, multipliers: [3, 9, 27, 81, 243, 729, 2187, 6561, 19243] },
-  master: { tiles: 4, bombs: 3, multipliers: [4, 16, 64, 256, 1024, 4096, 16384, 65536, 256901] }
+  easy:   { tiles: 4, bombs: 1, multipliers: [1, 1.31, 1.72, 2.26, 2.96, 3.87, 5.05, 6.60, 8.63] },
+  medium: { tiles: 3, bombs: 1, multipliers: [1, 1.5, 2.25, 3.38, 5.07, 7.61, 11.42, 17.13, 25.7] },
+  hard:   { tiles: 2, bombs: 1, multipliers: [1, 2, 4, 8, 16, 32, 64, 128, 256] },
+  expert: { tiles: 3, bombs: 2, multipliers: [1, 3, 9, 27, 81, 243, 729, 2187, 6561] },
+  master: { tiles: 4, bombs: 3, multipliers: [1, 4, 16, 64, 256, 1024, 4096, 16384] }
 };
 
 auth.onAuthStateChanged(user => {

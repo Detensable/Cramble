@@ -1,52 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="css/layout.css" />
-<link rel="stylesheet" href="css/cases.css" />
-<title>Cases Game - Cramble</title>
-<style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cases Game - Cramble</title>
 
-</style>
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/cases.css" />
+
+  <!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+  <!-- Firebase Config (replace with yours) -->
+  <script src="firebase-config.js"></script>
+
+  <!-- Game Script -->
+  <script type="module" src="js/cases.js"></script>
+
+  <style>
+    /* Inline styles can be moved to layout.css */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #121212;
+      color: #eee;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+    }
+  </style>
 </head>
 <body>
 
-  <h1>Cases Game</h1>
-  <div class="balance">Balance: <span id="balance">1000</span> credits</div>
-
-  <div class="controls">
-    <label for="difficulty">Difficulty:</label>
-    <select id="difficulty" aria-label="Difficulty Level">
-      <option value="easy" selected>Easy</option>
-      <option value="medium">Medium</option>
-      <option value="hard">Hard</option>
-      <option value="expert">Expert</option>
-    </select>
-
-    <label for="bet">Bet:</label>
-    <input type="number" id="bet" min="1" max="1000" value="10" step="1" />
-
-    <button id="crackBtn">Crack Open</button>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <a href="home.html">Home</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="blackjack.html">Blackjack</a>
+    <a href="roulette.html">Roulette</a>
+    <a href="slots.html">Slots</a>
+    <a href="dice.html">Dice</a>
+    <a href="crash.html">Crash</a>
+    <a href="tower.html">Tower</a>
+    <a href="mines.html">Mines</a>
+    <a href="cases.html" class="active">Cases</a>
   </div>
 
-  <div class="controls">
-    <label for="autoRounds">Auto-Rounds:</label>
-    <input type="number" id="autoRounds" min="1" max="1000" value="10" step="1" />
+  <!-- Main Content -->
+  <div class="content">
+    
+    <!-- Profile Dropdown -->
+    <div id="profile-wrapper">
+      <div id="profile-icon">👤</div>
+      <div id="dropdown" class="hidden">
+        <div onclick="viewProfile()">View Profile</div>
+        <div onclick="logout()">Logout</div>
+      </div>
+    </div>
 
-    <button id="startAutoBtn">Start Auto Play</button>
-    <button id="stopAutoBtn" disabled>Stop Auto Play</button>
-  </div>
+    <!-- Cases Game Container -->
+    <div class="container">
+      <h1>🎁 Cases Game</h1>
 
-  <div class="case-reel" aria-live="polite" aria-label="Cases spinning reel">
-    <div class="arrow-down" aria-hidden="true"></div>
-    <div class="reel-strip" id="reelStrip">
-      <!-- cases will be populated here by JS -->
+      <div class="balance" id="balance-display">Balance: $0.00</div>
+
+      <div class="controls">
+        <label for="difficulty">Difficulty:</label>
+        <select id="difficulty" aria-label="Difficulty Level">
+          <option value="easy" selected>Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+          <option value="expert">Expert</option>
+        </select>
+
+        <label for="bet">Bet:</label>
+        <input type="number" id="bet" min="1" max="1000" value="10" step="1" />
+        <button id="crackBtn">Crack Open</button>
+      </div>
+
+      <div class="controls">
+        <label for="autoRounds">Auto-Rounds:</label>
+        <input type="number" id="autoRounds" min="1" max="1000" value="10" step="1" />
+        <button id="startAutoBtn">Start Auto Play</button>
+        <button id="stopAutoBtn" disabled>Stop Auto Play</button>
+      </div>
+
+      <!-- Case Reel -->
+      <div class="case-reel" aria-live="polite" aria-label="Cases spinning reel">
+        <div class="arrow-down" aria-hidden="true"></div>
+        <div class="reel-strip" id="reelStrip">
+          <!-- Filled by JS -->
+        </div>
+      </div>
+
+      <!-- Status Message -->
+      <div class="status" id="statusMessage"></div>
     </div>
   </div>
 
-  <div class="status" id="statusMessage"></div>
-
-  <script src="js/cases.js"></script>
 </body>
 </html>
