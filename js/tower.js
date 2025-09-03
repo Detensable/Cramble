@@ -21,9 +21,9 @@ const difficulties = {
   medium: { tiles: 3, bombs: 1, multipliers: [1, 1.5, 2.25, 3.38, 5.07, 7.61, 11.42, 17.13, 25.7] },
   hard:   { tiles: 2, bombs: 1, multipliers: [1, 2, 4, 8, 16, 32, 64, 128, 256] },
   expert: { tiles: 3, bombs: 2, multipliers: [1, 3, 9, 27, 81, 243, 729, 2187, 6561] },
-  master: { tiles: 4, bombs: 3, multipliers: [1, 4, 16, 64, 256, 1024, 4096, 16384] }
+  master: { tiles: 4, bombs: 3, multipliers: [1, 4, 16, 64, 256, 1024, 4096, 16384, 65536] }
 };
-
+  
 auth.onAuthStateChanged(user => {
   if (!user) {
     window.location.href = "index.html";

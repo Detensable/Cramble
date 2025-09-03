@@ -19,7 +19,7 @@
   let autoplayRoundsLeft = 0;
   let isAutoPlaying = false;
   let currentUser = null;
-  let userBalance = 1000; // fallback
+  let userBalance = 0; // fallback
 
   // Multiplier sets per difficulty
   const difficulties = {
@@ -349,7 +349,7 @@
     const balanceRef = firebase.database().ref("users/" + user.uid + "/points");
     balanceRef.on("value", (snapshot) => {
       const points = snapshot.val();
-      userBalance = points || 1000;
+      userBalance = points || 0;
       if (balanceEl) balanceEl.textContent = userBalance.toFixed(2);
       if (balanceDisplayEl) balanceDisplayEl.textContent = `Balance: $${userBalance.toFixed(2)}`;
     });
