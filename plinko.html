@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Plinko</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/sidebar.css" />
+  <link rel="stylesheet" href="css/plinko.css" />
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <a href="home.html">Home</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="blackjack.html">Blackjack</a>
+    <a href="roulette.html">Roulette</a>
+    <a href="slots.html">Slots</a>
+    <a href="dice.html">Dice</a>
+    <a href="crash.html">Crash</a>
+    <a href="tower.html">Tower</a>
+    <a href="mines.html">Mines</a>
+    <a href="cases.html">Cases</a>
+    <a href="plinko.html">Plinko</a>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content">
+        <div class="game-container">
+<!-- Controls -->
+<div class="controls">
+  <!-- Row 1: Three full boxes -->
+  <div class="control-group">
+    <label class="control-label">Bet Amount</label>
+    <div class="bet-input">
+      <input type="number" id="bet-amount" value="1.00" step="0.01" min="0.01">
+      <button id="btn-half">½</button>
+      <button id="btn-double">2×</button>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label">Auto Play</label>
+    <div class="auto-toggle">
+      <label class="switch">
+        <input type="checkbox" id="checkbox">
+        <span class="slider"></span>
+      </label>
+      <span>Enable Auto Bet</span>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label">On Win</label>
+    <select id="on-win" disabled>
+      <option value="reset">Reset Bet</option>
+      <option value="increase">Increase by 10%</option>
+    </select>
+  </div>
+
+  <!-- Row 2: Balance & Multiplier centered under middle -->
+  <div class="balance-container">
+    <div class="control-group balance-box">
+      <label class="control-label">Balance</label>
+      <div id="balls">0.00</div>
+    </div>
+    <div class="control-group multiplier-box">
+      <label class="control-label">Last Multiplier</label>
+      <div id="multiplier">1.00x</div>
+    </div>
+  </div>
+</div>
+      <div class="drop-container">
+        <button id="drop-button" disabled>LOADING...</button>
+      </div>
+
+      <div class="canvas-container">
+        <canvas id="canvas" width="620" height="534"></canvas>
+      </div>
+
+      <div class="notes" id="payouts"></div>
+    </div>
+  </div>
+
+  <!-- Profile Dropdown -->
+  <div id="profile-wrapper">
+    <div id="profile-icon">?</div>
+    <div id="dropdown" class="hidden">
+      <div id="user-display">View Profile</div>
+      <div id="sign-out">Sign Out</div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.18.0/matter.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="js/plinko.js"></script>
+</body>
+</html>

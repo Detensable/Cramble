@@ -1,0 +1,346 @@
+    /* === Stake-Style UI (Preserved) === */
+    :root {
+      --bg: #14151f;
+      --card-bg: #1e2030;
+      --accent: #8b5cf6;
+      --accent-hover: #9d6bff;
+      --text: #ffffff;
+      --text-muted: rgba(255, 255, 255, 0.6);
+      --success: #10b981;
+      --danger: #ef4444;
+      --input-bg: #2a2d40;
+      --border: #3a3d50;
+    }
+
+    .content {
+      background-color: var(--bg);
+      min-height: 100vh;
+      padding: 20px 20px 20px 20px;
+    }
+
+    h1 {
+      font-size: 1.8em;
+      font-weight: 900;
+      margin-bottom: 0.5em;
+      text-align: center;
+    }
+
+    .subtitle {
+      font-size: 0.9em;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 1.5em;
+    }
+
+    .game-container {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5em;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1em;
+      margin-bottom: 1em;
+    }
+
+    .control-group {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 1em;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5em;
+    }
+
+    .control-label {
+      font-size: 0.9em;
+      color: var(--text-muted);
+    }
+
+    .bet-input {
+      display: flex;
+      gap: 0.5em;
+    }
+
+    .bet-input input {
+      flex: 1;
+      background: var(--input-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      padding: 0.6em 0.8em;
+      font-family: inherit;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .bet-input button {
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 0 0.8em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .bet-input button:hover {
+      background: var(--accent-hover);
+    }
+
+    .auto-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+      font-size: 0.9em;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 40px;
+      height: 20px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--border);
+      transition: 0.3s;
+      border-radius: 20px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 2px;
+      bottom: 2px;
+      background-color: white;
+      transition: 0.3s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: var(--accent);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+
+    .drop-container {
+      text-align: center;
+      grid-column: 1 / -1;
+    }
+
+    #drop-button {
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 1em 2em;
+      font-size: 1.2em;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      width: 100%;
+      max-width: 300px;
+      box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+    }
+
+    #drop-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+    }
+
+    #drop-button:active {
+      transform: translateY(0);
+    }
+
+    .stats {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 1em;
+      font-weight: 900;
+    }
+
+    .stat {
+      text-align: center;
+      font-size: 1.4em;
+    }
+
+    .stat-label {
+      font-size: 0.9em;
+      color: var(--text-muted);
+    }
+
+    .canvas-container {
+      display: flex;
+      justify-content: center;
+      margin: 0 auto;
+    }
+
+    canvas {
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+    }
+
+    .notes {
+      display: flex;
+      justify-content: center;
+      gap: 2px;
+      margin-top: 0.5em;
+      flex-wrap: wrap;
+    }
+
+    .note {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      aspect-ratio: 1;
+      border-radius: 6px;
+      background-color: #3a3d50;
+      color: white;
+      font-size: 0.75em;
+      font-weight: 700;
+      border-bottom: 3px solid #8b5cf6;
+    }
+
+    .note[data-pressed="true"] {
+      animation: press 0.5s;
+    }
+
+    @keyframes press {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(4px); }
+    }
+
+    .note:nth-child(1), .note:nth-child(17) { background: #10b981; }
+    .note:nth-child(2), .note:nth-child(16) { background: #0d9d6c; }
+    .note:nth-child(3), .note:nth-child(15) { background: #0b875a; }
+    .note:nth-child(4), .note:nth-child(14) { background: #0a744c; }
+    .note:nth-child(5), .note:nth-child(13) { background: #096340; }
+    .note:nth-child(6), .note:nth-child(12) { background: #085436; }
+    .note:nth-child(7), .note:nth-child(11) { background: #07482e; }
+    .note:nth-child(8), .note:nth-child(10) { background: #063e27; }
+    .note:nth-child(9) { background: #053521; }
+
+    /* Loading & Auth UI */
+    .auth-loading {
+      text-align: center;
+      padding: 40px;
+      color: var(--text-muted);
+    }
+
+    #profile-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    /* === Force White Text for Key Elements === */
+
+/* Main title */
+h1 {
+  color: #ffffff !important;
+  text-shadow: none;
+}
+
+/* Balance and Multiplier labels/values */
+#balls,
+#multiplier {
+  color: #ffffff !important;
+  font-weight: 750  ;
+}
+
+/* Stat labels (Balance, Last Multiplier) */
+.stat-label {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Make sure no black inheritance */
+.stats {
+  color: white;
+}
+
+/* Optional: Improve contrast/shadow for readability */
+#balls, #multiplier {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+.auto-toggle {
+  color: #ffffff !important;
+  font-size: 0.9em;
+}
+
+
+/* === Controls Grid - 3 on top, 2 centered below === */
+.controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1em;
+  margin-bottom: 1em;
+}
+
+.control-group {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  text-align: center;
+}
+
+.control-label {
+  font-size: 0.9em;
+  color: var(--text-muted);
+}
+
+/* Balance & Multiplier - span 1 each, centered in middle column */
+#balls,
+#multiplier {
+  /* These are the .stat-value elements */
+  font-size: 1.4em;
+  font-weight: 900;
+  color: white;
+  text-align: center;
+}
+
+/* Make Balance and Multiplier sit below "Auto Play" */
+.control-group.balance-box,
+.control-group.multiplier-box {
+  justify-self: center;
+  grid-column: 2 / 3; /* Span from col 2 to 3 (centered over middle) */
+}
+
+/* Fix: Ensure both are on same row */
+.balance-container {
+  grid-column: 2;
+  display: flex;
+  justify-content: center;
+  gap: 0.8em;
+  margin-top: -0.5em;
+}
+
+.balance-container > div {
+  min-width: 100px;
+}
