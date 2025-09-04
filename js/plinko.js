@@ -109,7 +109,7 @@ let currentBet = 1.0;
 let autoDropEnabled = false;
 let autoDroppingInterval = null;
 
-const multipliers = [50, 20, 7, 4, 3, 1.5, 1, 0.5, 0.3, 0.5, 1, 1.5, 3, 4, 7, 20, 50];
+const multipliers = [10, 7, 4, 3, 1.5, 1, 0.5, 0.3, 0.1, 0.3, 0.5, 1, 1.5, 3, 4, 7, 10];
 const notes = [
   "C#5", "C5", "B5", "A#5", "A5", "G#4", "G4", "F#4", "F4", "F#4", "G4", "G#4", "A5", "A#5", "B5", "C5", "C#5"
 ];
