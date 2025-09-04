@@ -251,7 +251,7 @@ function blackjackGame() {
                 if (this.dealerScore > 21) {
                     this.message = "Dealer busted! You win!";
                     this.points += this.betAmount * 2;
-                } else if (this.dealerScore >= this.playerScore) {
+                } else if (this.dealerScore > this.playerScore) {
                     this.message = "Dealer wins!";
                 } else {
                     this.message = "You win!";
