@@ -1,14 +1,7 @@
-body {
-  margin: 0;
-  font-family: sans-serif;
-  background-color: #0f0f14;
-  color: white;
-}
+/* home.css — home page game grid and redeem popup styles */
 
 .content {
-  padding: 40px 20px;
-  max-width: 1000px;
-  margin: auto;
+  padding: 40px 30px;
   position: relative;
 }
 
@@ -25,6 +18,18 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 30px;
   justify-items: center;
+}
+
+.game-box {
+  text-align: center;
+  width: 100%;
+}
+
+.game-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #ccc;
+  margin-bottom: 10px;
 }
 
 .game-grid a {
@@ -44,102 +49,35 @@ body {
   height: 160px;
   object-fit: cover;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
-/* Profile icon */
-#profile-wrapper {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  z-index: 1000;
-}
-
-#profile-icon {
-  background-color: #007bff;
-  color: white;
-  border-radius: 50%;
-  width: 45px;
-  height: 45px;
-  font-size: 20px;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-#profile-icon img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
-#dropdown {
-  margin-top: 8px;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  width: 130px;
-  text-align: left;
-  position: absolute;
-  top: 50px;
-  right: 0;
-  z-index: 999;
-  color: #333;
-}
-
-#dropdown div {
-  padding: 10px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-#dropdown div:hover {
-  background-color: #f0f0f0;
-}
-
-.hidden {
-  display: none;
-}
-
-.game-box {
-  text-align: center;
-}
-
-.game-title {
-  font-size: 18px;
-  font-weight: bold;
-  color: white;
-  margin-bottom: 10px;
-}
-
+/* Redeem button */
 #redeem-btn {
-  margin: 30px auto 0;
   display: block;
+  margin: 40px auto 0;
   background: #007bff;
   color: white;
   border: none;
-  font-size: 16px;
-  padding: 12px 20px;
+  font-size: 15px;
+  padding: 11px 22px;
   border-radius: 6px;
   cursor: pointer;
+  transition: background 0.2s;
 }
 
+#redeem-btn:hover {
+  background: #0069d9;
+}
+
+/* Redeem popup overlay */
 #redeem-popup {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0, 0, 0, 0.65);
   display: none;
   align-items: center;
   justify-content: center;
@@ -151,28 +89,31 @@ body {
 }
 
 .popup-content {
-  background: #1e1e2f;
+  background: #1e2030;
   padding: 30px;
   border-radius: 12px;
   width: 300px;
   text-align: center;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+  border: 1px solid #2e3050;
 }
 
 .popup-content h2 {
   color: #61dafb;
   margin-bottom: 15px;
+  font-size: 20px;
 }
 
 #redeem-input {
   width: 100%;
   padding: 10px;
-  font-size: 16px;
+  font-size: 15px;
   border-radius: 6px;
-  border: 1px solid #555;
+  border: 1px solid #444;
   background: #111;
   color: white;
-  margin-bottom: 15px;
+  margin-bottom: 14px;
+  box-sizing: border-box;
 }
 
 #submit-redeem {
@@ -183,20 +124,29 @@ body {
   color: white;
   cursor: pointer;
   font-weight: bold;
+  font-size: 14px;
+}
+
+#submit-redeem:hover {
+  background: #218838;
+}
+
+.close-btn {
+  background: #cc3333;
+  color: white;
+  border: none;
+  padding: 9px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-left: 8px;
+  font-size: 14px;
+}
+
+.close-btn:hover {
+  background: #b02a2a;
 }
 
 #redeem-message {
   margin-top: 10px;
-  font-size: 14px;
-}
-
-.close-btn {
-  background: #ff4d4d;
-  color: white;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-top: 10px;
-  margin-left: 8px;
+  font-size: 13px;
 }

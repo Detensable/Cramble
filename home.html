@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Cramble – Home</title>
+  <link rel="stylesheet" href="css/layout.css" />
   <link rel="stylesheet" href="css/home.css" />
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
@@ -10,8 +11,21 @@
   <script src="firebase-config.js"></script>
 </head>
 <body>
+  <div class="sidebar">
+    <a href="home.html" class="active">Home</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="blackjack.html">Blackjack</a>
+    <a href="roulette.html">Roulette</a>
+    <a href="slots.html">Slots</a>
+    <a href="dice.html">Dice</a>
+    <a href="crash.html">Crash</a>
+    <a href="tower.html">Tower</a>
+    <a href="mines.html">Mines</a>
+    <a href="cases.html">Cases</a>
+    <a href="plinko.html">Plinko</a>
+  </div>
+
   <div class="content">
-    <!-- Profile -->
     <div id="profile-wrapper">
       <div id="profile-icon">👤</div>
       <div id="dropdown" class="hidden">
@@ -20,72 +34,50 @@
       </div>
     </div>
 
-    <!-- Page Header -->
     <h1 class="page-title">Choose Your Game</h1>
 
-    <!-- Game Grid -->
     <div class="game-grid">
       <div class="game-box">
         <div class="game-title">Blackjack</div>
-        <a href="blackjack.html">
-          <img src="img/blackjack.png" alt="Blackjack" />
-        </a>
+        <a href="blackjack.html"><img src="img/blackjack.png" alt="Blackjack" /></a>
       </div>
       <div class="game-box">
         <div class="game-title">Roulette</div>
-        <a href="roulette.html">
-          <img src="img/roulette.png" alt="Roulette" />
-        </a>
+        <a href="roulette.html"><img src="img/roulette.png" alt="Roulette" /></a>
       </div>
       <div class="game-box">
         <div class="game-title">Slots</div>
-        <a href="slots.html">
-          <img src="img/slots.png" alt="Slots" />
-        </a>
+        <a href="slots.html"><img src="img/slots.png" alt="Slots" /></a>
       </div>
       <div class="game-box">
         <div class="game-title">Dice</div>
-        <a href="dice.html">
-          <img src="img/dice.png" alt="Dice" />
-        </a>
+        <a href="dice.html"><img src="img/dice.png" alt="Dice" /></a>
       </div>
       <div class="game-box">
         <div class="game-title">Crash</div>
-        <a href="crash.html">
-          <img src="img/crash.png" alt="Crash" />
-        </a>
+        <a href="crash.html"><img src="img/crash.png" alt="Crash" /></a>
       </div>
-        <div class="game-box">
+      <div class="game-box">
         <div class="game-title">Tower</div>
-        <a href="tower.html">
-          <img src="img/tower.png" alt="Tower" />
-        </a>
+        <a href="tower.html"><img src="img/tower.png" alt="Tower" /></a>
       </div>
       <div class="game-box">
         <div class="game-title">Mines</div>
-        <a href="mines.html">
-          <img src="img/mines.png" alt="Mines" />
-        </a>
+        <a href="mines.html"><img src="img/mines.png" alt="Mines" /></a>
       </div>
       <div class="game-box">
         <div class="game-title">Cases</div>
-        <a href="cases.html">
-          <img src="img/cases.avif" alt="Cases" />
-        </a>
+        <a href="cases.html"><img src="img/cases.avif" alt="Cases" /></a>
       </div>
       <div class="game-box">
         <div class="game-title">Plinko</div>
-        <a href="plinko.html">
-          <img src="img/plinko.avif" alt="Plinko" />
-        </a>
+        <a href="plinko.html"><img src="img/plinko.avif" alt="Plinko" /></a>
       </div>
     </div>
 
-    <!-- Redeem Button -->
     <button id="redeem-btn">Redeem</button>
 
-    <!-- Redeem Popup -->
-    <div id="redeem-popup" class="hidden">
+    <div id="redeem-popup">
       <div class="popup-content">
         <h2>Redeem Code</h2>
         <input type="text" id="redeem-input" placeholder="Enter code..." />
@@ -114,52 +106,38 @@
       if (!user) {
         window.location.href = "index.html";
       } else {
-        db.ref("users/" + user.uid + "/profileImage").once("value")
-          .then(snapshot => {
-            const image = snapshot.val();
-            icon.innerHTML = "";
+        db.ref("users/" + user.uid + "/profileImage").once("value").then(snapshot => {
+          const image = snapshot.val();
+          icon.innerHTML = "";
+          if (image) {
+            const img = document.createElement("img");
+            img.src = image;
+            icon.appendChild(img);
+          } else {
+            icon.textContent = user.email[0].toUpperCase();
+          }
+          icon.title = user.email;
+        });
 
-            if (image) {
-              const img = document.createElement("img");
-              img.src = image;
-              img.style.width = "100%";
-              img.style.height = "100%";
-              img.style.borderRadius = "50%";
-              icon.appendChild(img);
-            } else {
-              icon.textContent = user.email[0].toUpperCase();
-            }
-
-            icon.title = user.email;
-          });
-
-        icon.onclick = () => {
-          dropdown.classList.toggle("hidden");
-        };
+        icon.onclick = () => dropdown.classList.toggle("hidden");
       }
     });
 
     function logout() {
-      auth.signOut().then(() => {
-        window.location.href = "index.html";
-      });
+      auth.signOut().then(() => window.location.href = "index.html");
     }
-
     function viewProfile() {
       window.location.href = "profile.html";
     }
-
     window.logout = logout;
     window.viewProfile = viewProfile;
 
-    // Hide dropdown when clicking outside
-    document.addEventListener("click", (e) => {
+    document.addEventListener("click", e => {
       if (!document.getElementById("profile-wrapper").contains(e.target)) {
         dropdown.classList.add("hidden");
       }
     });
 
-    // Redeem popup logic
     redeemBtn.onclick = () => {
       redeemPopup.classList.add("active");
       redeemInput.value = "";
@@ -168,68 +146,50 @@
       submitBtn.disabled = false;
     };
 
-    closeBtn.onclick = () => {
-      redeemPopup.classList.remove("active");
-    };
+    closeBtn.onclick = () => redeemPopup.classList.remove("active");
 
-   submitBtn.onclick = () => {
-  const code = redeemInput.value.trim();
-  if (!code) return;
-
-  redeemInput.disabled = true;
-  submitBtn.disabled = true;
-
-  const user = auth.currentUser;
-  if (!user) return;
-
-  const codeRef = db.ref("codes/" + code);
-
-  codeRef.once("value").then(snapshot => {
-    const data = snapshot.val();
-
-    if (data) {
-      const redemptions = data.redemptions || {};
-      const hasRedeemed = redemptions[user.uid];
-
-      if (hasRedeemed) {
-        redeemMessage.textContent = "You've already redeemed this code.";
-        redeemMessage.style.color = "orange";
-        redeemInput.disabled = false;
-        submitBtn.disabled = false;
-        return;
-      }
-
-      const points = data.points || 0;
-
-      // Grant points
-      const userPointsRef = db.ref("users/" + user.uid + "/points");
-      userPointsRef.transaction(current => (current || 0) + points);
-
-      // Mark as redeemed
-      codeRef.child("redemptions").child(user.uid).set(true);
-
-      redeemMessage.textContent = `Success! +${points} points added.`;
-      redeemMessage.style.color = "limegreen";
-    } else {
-      redeemMessage.textContent = "Invalid code. Try again in 3s.";
-      redeemMessage.style.color = "red";
-
-      setTimeout(() => {
-        redeemInput.disabled = false;
-        submitBtn.disabled = false;
-      }, 3000);
-    }
-  });
-};
-
-
-    // Optional: click outside to close
-    window.addEventListener("click", (e) => {
-      if (e.target === redeemPopup) {
-        redeemPopup.classList.remove("active");
-      }
+    window.addEventListener("click", e => {
+      if (e.target === redeemPopup) redeemPopup.classList.remove("active");
     });
+
+    submitBtn.onclick = () => {
+      const code = redeemInput.value.trim();
+      if (!code) return;
+
+      redeemInput.disabled = true;
+      submitBtn.disabled = true;
+
+      const user = auth.currentUser;
+      if (!user) return;
+
+      const codeRef = db.ref("codes/" + code);
+      codeRef.once("value").then(snapshot => {
+        const data = snapshot.val();
+        if (data) {
+          const redemptions = data.redemptions || {};
+          if (redemptions[user.uid]) {
+            redeemMessage.textContent = "You've already redeemed this code.";
+            redeemMessage.style.color = "orange";
+            redeemInput.disabled = false;
+            submitBtn.disabled = false;
+            return;
+          }
+          const points = data.points || 0;
+          db.ref("users/" + user.uid + "/points").transaction(current => (current || 0) + points);
+          codeRef.child("redemptions").child(user.uid).set(true);
+          redeemMessage.textContent = `Success! +${points} points added.`;
+          redeemMessage.style.color = "limegreen";
+        } else {
+          redeemMessage.textContent = "Invalid code. Try again in 3s.";
+          redeemMessage.style.color = "red";
+          setTimeout(() => {
+            redeemInput.disabled = false;
+            submitBtn.disabled = false;
+          }, 3000);
+        }
+      });
+    };
   });
-</script>
+  </script>
 </body>
 </html>

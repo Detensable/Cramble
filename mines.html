@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cramble Mines</title>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
-  <script src="firebase-config.js"></script>
-  <link rel="stylesheet" href="css/mines.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cramble – Mines</title>
   <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/mines.css" />
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script src="firebase-config.js"></script>
 </head>
 <body>
   <div class="sidebar">
@@ -21,13 +21,12 @@
     <a href="dice.html">Dice</a>
     <a href="crash.html">Crash</a>
     <a href="tower.html">Tower</a>
-    <a href="mines.html">Mines</a>
+    <a href="mines.html" class="active">Mines</a>
     <a href="cases.html">Cases</a>
     <a href="plinko.html">Plinko</a>
   </div>
 
   <div class="content">
-    <!-- Put your top-right profile here or anywhere inside body -->
     <div id="profile-wrapper">
       <div id="profile-icon">U</div>
       <div id="dropdown" class="hidden">
@@ -36,49 +35,102 @@
       </div>
     </div>
 
-    <!-- Mines container -->
-    <div class="mines-container" style="transform: none; max-width:none; ">
-      <div>
-        <div class="mode-toggle">
-          <button id="manualBtn" class="active">Manual</button>
-          <button id="autoBtn">Auto</button>
+    <div class="mines-layout">
+
+      <!-- ── Left panel ── -->
+      <div class="mines-panel">
+
+        <div class="panel-balance">
+          Balance: $<span id="balance">0.00</span>
         </div>
 
-        <div class="balance-display">Balance: $<span id="balance"></span></div>
+        <!-- Mode tabs -->
+        <div class="mode-tabs">
+          <button class="tab active" id="tab-manual" onclick="setMode('manual')">Manual</button>
+          <button class="tab" id="tab-auto" onclick="setMode('auto')">Auto</button>
+        </div>
 
-        <!-- Manual Controls -->
-        <div class="controls" id="manualControls">
-          <label>Amount</label>
-          <input type="number" id="betAmount" min="0" step="0.01" value="1.00" />
-          
-          <label>Mines</label>
-          <input type="number" id="mineCountInput" min="1" max="24" value="3" />
-          
-          <button id="playBtn">Play</button>
-          <button id="cashOutBtn" disabled>Cash Out</button>
-
-          <div class="profit">
-            Total Profit: <span id="profit">0.00</span>
+        <!-- Bet amount -->
+        <div class="ctrl-group">
+          <label class="ctrl-label">Bet Amount</label>
+          <div class="bet-row">
+            <button class="bet-adj" onclick="halveBet()">½</button>
+            <input type="number" id="bet-input" value="10.00" min="0.01" step="0.01" />
+            <button class="bet-adj" onclick="doubleBet()">2×</button>
           </div>
         </div>
 
-        <!-- Auto Controls -->
-        <div class="controls hidden" id="autoControls">
-          <label>Amount</label>
-          <input type="number" id="autoBet" min="0" step="0.01" value="1.00" />
-          
-          <label>Mines</label>
-          <input type="number" id="autoMineCount" min="1" max="24" value="3" />
-
-          <label>Number of Plays</label>
-          <input type="number" id="autoPlays" min="1" value="10" />
-
-          <button id="startAutoBtn">Start Auto</button>
-          <button id="stopAutoBtn" disabled>Stop</button>
+        <!-- Mine count -->
+        <div class="ctrl-group">
+          <label class="ctrl-label">Mines <span id="mine-label">3</span></label>
+          <div class="mine-presets">
+            <button onclick="setMinePreset(1)">1</button>
+            <button onclick="setMinePreset(3)" class="preset-active">3</button>
+            <button onclick="setMinePreset(5)">5</button>
+            <button onclick="setMinePreset(10)">10</button>
+            <button onclick="setMinePreset(15)">15</button>
+            <button onclick="setMinePreset(24)">24</button>
+          </div>
+          <input type="number" id="mines-input" value="3" min="1" max="24"
+                 oninput="syncMineInput()" />
         </div>
+
+        <!-- Manual-only: auto-picks setting -->
+        <div class="ctrl-group" id="auto-picks-group" style="display:none">
+          <label class="ctrl-label">Auto-pick gems per round</label>
+          <input type="number" id="auto-picks-input" value="3" min="1" max="24" />
+        </div>
+
+        <!-- Auto-only: rounds -->
+        <div class="ctrl-group hidden" id="auto-rounds-group">
+          <label class="ctrl-label">Number of rounds</label>
+          <input type="number" id="auto-rounds-input" value="10" min="1" />
+        </div>
+
+        <!-- Play / Stop Auto buttons -->
+        <button class="btn-play" id="play-btn" onclick="startGame()">Play</button>
+        <button class="btn-play btn-start-auto hidden" id="start-auto-btn" onclick="startAuto()">Start Auto</button>
+        <button class="btn-stop hidden" id="stop-auto-btn" onclick="stopAuto()">Stop Auto</button>
+
+        <!-- Live stats (visible during game) -->
+        <div class="live-stats hidden" id="live-stats">
+          <div class="stat-block">
+            <span class="stat-label">Multiplier</span>
+            <span class="stat-value" id="mult-display">1.00×</span>
+          </div>
+          <div class="stat-block">
+            <span class="stat-label">Profit on cashout</span>
+            <span class="stat-value green" id="profit-display">+$0.00</span>
+          </div>
+          <div class="stat-block">
+            <span class="stat-label">Next tile</span>
+            <span class="stat-value muted" id="next-display">—</span>
+          </div>
+          <div class="gems-row">
+            <span id="gems-found">0</span> gems
+            &nbsp;·&nbsp;
+            <span id="safe-left">22</span> safe tiles left
+          </div>
+        </div>
+
+        <!-- Pick for me (manual mode during game) -->
+        <button class="btn-pick hidden" id="pick-btn" onclick="autoPick()">
+          🎲 Pick for me
+        </button>
+
+        <!-- Cash Out -->
+        <button class="btn-cashout" id="cashout-btn" disabled onclick="cashOut()">
+          Cash Out — $0.00
+        </button>
+
       </div>
 
-      <div class="grid" id="grid"></div>
+      <!-- ── Grid ── -->
+      <div class="mines-grid-area">
+        <div class="mines-grid" id="grid"></div>
+        <div class="round-result hidden" id="round-result"></div>
+      </div>
+
     </div>
   </div>
 

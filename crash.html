@@ -19,16 +19,14 @@
     <a href="roulette.html">Roulette</a>
     <a href="slots.html">Slots</a>
     <a href="dice.html">Dice</a>
-    <a href="crash.html">Crash</a>
+    <a href="crash.html" class="active">Crash</a>
     <a href="tower.html">Tower</a>
     <a href="mines.html">Mines</a>
     <a href="cases.html">Cases</a>
     <a href="plinko.html">Plinko</a>
   </div>
 
-
   <div class="content">
-    <!-- Profile -->
     <div id="profile-wrapper">
       <div id="profile-icon">👤</div>
       <div id="dropdown" class="hidden">
@@ -37,24 +35,60 @@
       </div>
     </div>
 
-    <!-- Crash Game -->
-    <div class="container">
-      <h1>🚀 Crash</h1>
-      <div class="multiplier" id="multiplier">1.00x</div>
+    <div class="crash-layout">
 
-      <div class="controls">
-        <input type="number" id="betAmount" placeholder="Enter bet" min="1" />
-        <button id="startBtn">Start</button>
-        <button id="cashOutBtn" disabled>Cash Out</button>
+      <!-- ── Left panel ── -->
+      <div class="crash-panel">
 
-        <div class="auto-cashout">
-          <label><input type="checkbox" id="autoToggle"/>Auto Cash Out</label>
-          <input type="number" id="autoMultiplier" placeholder="e.g. 2.00" min="1" step="0.01" />
+        <div class="panel-balance">
+          Balance: $<span id="balance">0.00</span>
+        </div>
+
+        <div class="ctrl-group">
+          <label class="ctrl-label">Bet Amount</label>
+          <div class="bet-row">
+            <button class="bet-adj" onclick="halveBet()">½</button>
+            <input type="number" id="bet-input" value="10.00" min="0.01" step="0.01" />
+            <button class="bet-adj" onclick="doubleBet()">2×</button>
+          </div>
+        </div>
+
+        <div class="ctrl-group">
+          <label class="ctrl-label">Auto Cash Out</label>
+          <div class="auto-row">
+            <label class="toggle-wrap">
+              <input type="checkbox" id="auto-toggle" />
+              <span class="toggle-slider"></span>
+            </label>
+            <input type="number" id="auto-target" value="2.00" min="1.01" step="0.01"
+                   placeholder="Target ×" />
+          </div>
+        </div>
+
+        <button class="btn-bet" id="bet-btn" onclick="placeBet()">Place Bet</button>
+        <button class="btn-cashout" id="cashout-btn" disabled onclick="cashOut()">
+          Cash Out — $0.00
+        </button>
+
+        <div class="panel-status" id="panel-status"></div>
+
+        <!-- Bet history -->
+        <div class="bet-history-label">Recent rounds</div>
+        <div class="bet-history" id="bet-history"></div>
+
+      </div>
+
+      <!-- ── Right: graph area ── -->
+      <div class="crash-main">
+        <div class="canvas-wrap">
+          <canvas id="crashCanvas"></canvas>
+          <div class="mult-overlay" id="mult-overlay">
+            <div class="mult-value" id="mult-value">—</div>
+            <div class="mult-sub" id="mult-sub">Place your bet to start</div>
+          </div>
         </div>
       </div>
-      <div id="balance-display">Balance: $0</div>
-      <div class="status" id="status"></div>
-      <canvas id="crashCanvas" width="600" height="300"></canvas>
+
     </div>
   </div>
 

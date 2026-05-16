@@ -18,20 +18,7 @@
   <script src="firebase-config.js"></script>
 
   <!-- Game Script -->
-  <script type="module" src="js/cases.js"></script>
-
-  <style>
-    /* Inline styles can be moved to layout.css */
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #121212;
-      color: #eee;
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      display: flex;
-    }
-  </style>
+  <script defer src="js/cases.js"></script>
 </head>
 <body>
 
@@ -49,6 +36,12 @@
     <a href="cases.html" class="active">Cases</a>
     <a href="plinko.html">Plinko</a>
   </div>
+
+  <!-- Auth helpers for dropdown onclicks -->
+  <script>
+    function logout() { firebase.auth().signOut().then(() => window.location.href = "index.html"); }
+    function viewProfile() { window.location.href = "profile.html"; }
+  </script>
 
   <!-- Main Content -->
   <div class="content">

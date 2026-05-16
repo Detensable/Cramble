@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cramble – Leaderboard</title>
-  <link rel="stylesheet" href="css/layout.css">
-  <link rel="stylesheet" href="css/leaderboard.css">
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/leaderboard.css" />
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script src="firebase-config.js"></script>
+</head>
 <body>
   <div class="sidebar">
     <a href="home.html">Home</a>
-    <a href="leaderboard.html">Leaderboard</a>
+    <a href="leaderboard.html" class="active">Leaderboard</a>
     <a href="blackjack.html">Blackjack</a>
     <a href="roulette.html">Roulette</a>
     <a href="slots.html">Slots</a>
@@ -22,7 +27,14 @@
   </div>
 
   <div class="content">
-    <!-- Main page content goes here -->
+    <div id="profile-wrapper">
+      <div id="profile-icon">U</div>
+      <div id="dropdown" class="hidden">
+        <div onclick="viewProfile()">View Profile</div>
+        <div onclick="logout()">Logout</div>
+      </div>
+    </div>
+
     <div class="leaderboard">
       <h2>🏆 Cramble Leaderboard</h2>
       <table>
@@ -38,22 +50,43 @@
     </div>
   </div>
 
-  <!-- Profile -->
-  <div id="profile-wrapper">
-    <div id="profile-icon">U</div>
-    <div id="dropdown" class="hidden">
-      <div>Profile</div>
-      <div>Settings</div>
-      <div>Logout</div>
-    </div>
-  </div>
-</body>
-</head>
-
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-  <script src="firebase-config.js"></script>
   <script src="js/leaderboard.js"></script>
+  <script>
+    const auth = firebase.auth();
 
+    auth.onAuthStateChanged(user => {
+      if (!user) {
+        window.location.href = "index.html";
+        return;
+      }
+      const icon = document.getElementById("profile-icon");
+      const dropdown = document.getElementById("dropdown");
+
+      firebase.database().ref("users/" + user.uid + "/profileImage").once("value").then(snapshot => {
+        const image = snapshot.val();
+        icon.innerHTML = "";
+        if (image) {
+          const img = document.createElement("img");
+          img.src = image;
+          icon.appendChild(img);
+        } else {
+          icon.textContent = user.email[0].toUpperCase();
+        }
+        icon.title = user.email;
+      });
+
+      icon.onclick = () => dropdown.classList.toggle("hidden");
+    });
+
+    document.addEventListener("click", e => {
+      const wrapper = document.getElementById("profile-wrapper");
+      if (!wrapper.contains(e.target)) {
+        document.getElementById("dropdown").classList.add("hidden");
+      }
+    });
+
+    function logout() { firebase.auth().signOut().then(() => window.location.href = "index.html"); }
+    function viewProfile() { window.location.href = "profile.html"; }
+  </script>
+</body>
 </html>

@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Profile – Cramble</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css" />
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
@@ -11,16 +13,41 @@
 <body>
   <div class="profile-page">
     <div id="profile-card">
-      <div id="profile-pic"></div>
 
-      <h2>
-        <input type="text" id="name-input" placeholder="Enter name" />
-      </h2>
-      <p id="email"></p>
+      <!-- Avatar -->
+      <div class="avatar-section">
+        <div id="profile-pic" title="Click to change photo">
+          <div class="avatar-overlay">Change Photo</div>
+        </div>
+        <input type="file" id="file-input" accept="image/*" hidden />
+        <h2 id="display-label">Player</h2>
+        <p id="email"></p>
+      </div>
 
-      <input type="file" id="file-input" accept="image/*" />
-      <button onclick="saveProfile()">Save Changes</button>
-      <button onclick="goHome()">Back to Home</button>
+      <div class="divider"></div>
+
+      <!-- Fields -->
+      <div class="fields">
+        <div class="field-group">
+          <label class="field-label" for="display-name-input">Display Name</label>
+          <input type="text" id="display-name-input" placeholder="e.g. CrambleKing" autocomplete="off" />
+          <span class="field-hint">Shown on the leaderboard</span>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="real-name-input">Real Name</label>
+          <input type="text" id="real-name-input" placeholder="e.g. John Smith" autocomplete="off" />
+          <span class="field-hint">Only visible to you</span>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="actions">
+        <button id="save-btn" onclick="saveProfile()">Save Changes</button>
+        <button class="btn-secondary" onclick="goHome()">← Back to Home</button>
+      </div>
+
+      <p id="save-message"></p>
     </div>
   </div>
 
@@ -29,78 +56,93 @@
     const db = firebase.database();
     let selectedFile = null;
 
-    // Handle auth + load profile
     auth.onAuthStateChanged(user => {
-      if (!user) {
-        window.location.href = "index.html";
-      } else {
-        document.getElementById("email").textContent = user.email;
-        document.getElementById("name-input").value = user.displayName || "";
+      if (!user) { window.location.href = "index.html"; return; }
 
-        const picContainer = document.getElementById("profile-pic");
-        picContainer.innerHTML = "";
+      document.getElementById("email").textContent = user.email;
 
-        // Load image from database
-        db.ref("users/" + user.uid + "/profileImage").once("value")
-          .then((snapshot) => {
-            const image = snapshot.val();
+      const pic = document.getElementById("profile-pic");
 
-            if (image) {
-              const img = document.createElement("img");
-              img.src = image;
-              img.style.width = "100%";
-              img.style.height = "100%";
-              img.style.borderRadius = "50%";
-              picContainer.appendChild(img);
-            } else {
-              picContainer.textContent = user.email[0].toUpperCase();
-            }
-          });
+      db.ref("users/" + user.uid).once("value").then(snapshot => {
+        const data = snapshot.val() || {};
 
-        // File input listener
-        document.getElementById("file-input").addEventListener("change", (e) => {
-          selectedFile = e.target.files[0];
-        });
-      }
+        document.getElementById("display-name-input").value = data.username || "";
+        document.getElementById("real-name-input").value = data.realName || "";
+        document.getElementById("display-label").textContent = data.username || user.email.split("@")[0];
+
+        setAvatar(pic, data.profileImage, user.email);
+      });
+
+      pic.addEventListener("click", () => document.getElementById("file-input").click());
+
+      document.getElementById("file-input").addEventListener("change", e => {
+        selectedFile = e.target.files[0];
+        if (!selectedFile) return;
+        const reader = new FileReader();
+        reader.onload = ev => setAvatar(pic, ev.target.result, user.email);
+        reader.readAsDataURL(selectedFile);
+      });
     });
 
+    function setAvatar(container, imageData, email) {
+      const overlay = container.querySelector(".avatar-overlay");
+      container.innerHTML = "";
+      container.appendChild(overlay);
+      if (imageData) {
+        const img = document.createElement("img");
+        img.src = imageData;
+        container.insertBefore(img, overlay);
+      } else {
+        const letter = document.createElement("span");
+        letter.className = "avatar-letter";
+        letter.textContent = email[0].toUpperCase();
+        container.insertBefore(letter, overlay);
+      }
+    }
+
     function saveProfile() {
-      const name = document.getElementById("name-input").value;
-      const user = firebase.auth().currentUser;
+      const user = auth.currentUser;
       if (!user) return;
 
-      const updateAuthProfile = (photoURL) => {
-        const profileUpdate = { displayName: name };
-        if (photoURL) profileUpdate.photoURL = photoURL;
+      const displayName = document.getElementById("display-name-input").value.trim();
+      const realName = document.getElementById("real-name-input").value.trim();
+      const msg = document.getElementById("save-message");
+      const btn = document.getElementById("save-btn");
 
-        user.updateProfile(profileUpdate)
+      btn.disabled = true;
+      btn.textContent = "Saving...";
+
+      const commit = (profileImage) => {
+        const updates = { username: displayName, realName };
+        if (profileImage !== undefined) updates.profileImage = profileImage;
+
+        db.ref("users/" + user.uid).update(updates)
           .then(() => {
-            alert("Profile updated!");
-            location.reload();
+            user.updateProfile({ displayName }).catch(() => {});
+            document.getElementById("display-label").textContent = displayName || user.email.split("@")[0];
+            msg.textContent = "✓ Profile saved";
+            msg.className = "msg-success";
           })
-          .catch(err => alert(err.message));
+          .catch(err => {
+            msg.textContent = "Error: " + err.message;
+            msg.className = "msg-error";
+          })
+          .finally(() => {
+            btn.disabled = false;
+            btn.textContent = "Save Changes";
+          });
       };
 
       if (selectedFile) {
         const reader = new FileReader();
-        reader.onload = function (event) {
-          const base64String = event.target.result;
-
-          db.ref("users/" + user.uid).set({
-            profileImage: base64String
-          }).then(() => {
-            updateAuthProfile(); // No need to update photoURL since we're not using Auth's photoURL
-          });
-        };
+        reader.onload = e => commit(e.target.result);
         reader.readAsDataURL(selectedFile);
       } else {
-        updateAuthProfile();
+        commit(undefined);
       }
     }
 
-    function goHome() {
-      window.location.href = "home.html";
-    }
+    function goHome() { window.location.href = "home.html"; }
   </script>
 </body>
 </html>

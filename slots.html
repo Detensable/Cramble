@@ -3,28 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <title>Cramble – Slots</title>
-
-  <!-- Styles -->
   <link rel="stylesheet" href="css/layout.css" />
-  <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/slots.css" />
-
-  <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
   <script src="firebase-config.js"></script>
-  <script src="js/balance.js"></script>
-
 </head>
 <body>
-  <!-- Sidebar -->
   <div class="sidebar">
     <a href="home.html">Home</a>
     <a href="leaderboard.html">Leaderboard</a>
     <a href="blackjack.html">Blackjack</a>
     <a href="roulette.html">Roulette</a>
-    <a href="slots.html">Slots</a>
+    <a href="slots.html" class="active">Slots</a>
     <a href="dice.html">Dice</a>
     <a href="crash.html">Crash</a>
     <a href="tower.html">Tower</a>
@@ -33,9 +25,7 @@
     <a href="plinko.html">Plinko</a>
   </div>
 
-  <!-- Content -->
   <div class="content">
-    <!-- Profile icon -->
     <div id="profile-wrapper">
       <div id="profile-icon">👤</div>
       <div id="dropdown" class="hidden">
@@ -44,28 +34,54 @@
       </div>
     </div>
 
-    <!-- Slots Game -->
-    <h1>🎰 Slot Machine</h1>
-    <div id="balance">Balance: $0</div>
+    <div class="slot-wrapper">
 
-    <div id="machine-container">
-      <div id="slot-machine">
-        <div class="reel" id="reel1">🍒</div>
-        <div class="reel" id="reel2">🍋</div>
-        <div class="reel" id="reel3">🔔</div>
+      <!-- Machine -->
+      <div class="machine">
+
+        <!-- Header -->
+        <div class="machine-header">
+          <div class="lights" id="lights"></div>
+          <h1 class="machine-title">🎰 SLOTS</h1>
+        </div>
+
+        <!-- Balance -->
+        <div class="balance-bar">
+          Balance: $<span id="balance">0.00</span>
+        </div>
+
+        <!-- Reels -->
+        <div class="reels-frame">
+          <div class="win-line"></div>
+          <div class="reels">
+            <div class="reel-window"><div class="reel-strip" id="strip-0"></div></div>
+            <div class="reel-window"><div class="reel-strip" id="strip-1"></div></div>
+            <div class="reel-window"><div class="reel-strip" id="strip-2"></div></div>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+          <div class="bet-row">
+            <button class="bet-adj" onclick="halveBet()">½</button>
+            <input type="number" id="bet-input" value="10.00" min="0.01" step="0.01" />
+            <button class="bet-adj" onclick="doubleBet()">2×</button>
+          </div>
+          <button id="spin-btn" onclick="spin()">SPIN</button>
+        </div>
+
+        <div id="message"></div>
       </div>
-      <div id="lever"></div>
-    </div>
 
-    <div id="controls">
-      Bet: $
-      <input type="number" id="betAmount" value="10" min="1" />
-    </div>
+      <!-- Paytable -->
+      <div class="paytable">
+        <div class="paytable-title">Paytable</div>
+        <div class="paytable-grid" id="paytable-grid"></div>
+      </div>
 
-    <div id="message"></div>
+    </div>
   </div>
 
-  <!-- Scripts -->
   <script src="js/slots.js"></script>
 </body>
 </html>

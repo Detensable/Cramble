@@ -1,90 +1,301 @@
-body {
-  background: #111;
-  color: #fff;
-  font-family: Arial, sans-serif;
+/* slots.css */
+
+.slot-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 20px 60px;
+  gap: 24px;
 }
 
-h1 {
-  font-size: 3rem;
-  margin-bottom: 10px;
+/* ── Machine shell ── */
+.machine {
+  background: linear-gradient(180deg, #1c1d2e 0%, #15162200 100%), #16172a;
+  border: 2px solid #2a2c45;
+  border-radius: 24px;
+  width: 360px;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+}
+
+/* ── Header ── */
+.machine-header {
+  background: linear-gradient(180deg, #1e2040 0%, #191a30 100%);
+  padding: 18px 24px 16px;
   text-align: center;
+  border-bottom: 2px solid #2a2c45;
 }
 
-#balance {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-  text-align: center;
+.machine-title {
+  margin: 10px 0 0;
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  color: #ffd700;
+  text-shadow: 0 0 24px rgba(255, 215, 0, 0.45);
 }
 
-#machine-container {
+/* Decorative lights */
+.lights {
   display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 40px;
+  gap: 7px;
 }
 
-#slot-machine {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-}
-
-.reel {
-  width: 80px;
-  height: 80px;
-  background: #333;
-  border: 2px solid #fff;
-  font-size: 3rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: transform 0.5s ease;
-}
-
-#lever {
-  width: 30px;
-  height: 100px;
-  background: #666;
-  border-radius: 10px;
-  position: relative;
-  cursor: grab;
-  transition: transform 0.2s ease;
-}
-
-#lever::after {
-  content: "";
-  width: 30px;
-  height: 30px;
-  background: red;
+.light {
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
+  box-shadow: 0 0 4px currentColor;
+}
+
+/* ── Balance ── */
+.balance-bar {
+  padding: 11px 20px;
+  text-align: center;
+  font-size: 15px;
+  color: #666;
+  background: #0e0f1a;
+  border-bottom: 1px solid #2a2c45;
+}
+
+.balance-bar span {
+  color: #eee;
+  font-weight: 700;
+}
+
+/* ── Reels frame ── */
+.reels-frame {
+  position: relative;
+  padding: 20px 20px;
+  background: #0c0d18;
+}
+
+.reels {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.reel-window {
+  width: 96px;
+  height: 240px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #111220;
+  border: 2px solid #2a2c45;
+  position: relative;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0,0,0,0.6) 18%,
+    black 32%,
+    black 68%,
+    rgba(0,0,0,0.6) 82%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0,0,0,0.6) 18%,
+    black 32%,
+    black 68%,
+    rgba(0,0,0,0.6) 82%,
+    transparent 100%
+  );
+}
+
+.reel-strip {
+  display: flex;
+  flex-direction: column;
+  will-change: transform;
+}
+
+.symbol-cell {
+  width: 96px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.6rem;
+  flex-shrink: 0;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+/* Golden win-line overlay */
+.win-line {
   position: absolute;
-  bottom: -35px;
-  left: 0;
+  left: 20px;
+  right: 20px;
+  top: 50%;
+  height: 80px;
+  transform: translateY(-50%);
+  border-top: 2px solid rgba(255, 215, 0, 0.25);
+  border-bottom: 2px solid rgba(255, 215, 0, 0.25);
+  pointer-events: none;
+  z-index: 3;
+  border-radius: 6px;
 }
 
-#controls {
-  margin-top: 20px;
-  text-align: center;
+/* ── Controls ── */
+.controls {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-top: 1px solid #2a2c45;
 }
 
-input[type="number"] {
-  width: 80px;
-  padding: 5px;
-  font-size: 1rem;
-  text-align: center;
+.bet-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-button {
-  padding: 8px 16px;
-  font-size: 1rem;
-  margin-left: 10px;
+.bet-adj {
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  background: #1a1c2e;
+  border: 1px solid #2a2c45;
+  color: #999;
+  font-size: 13px;
+  font-weight: 700;
   cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s;
 }
 
-#message {
-  margin-top: 15px;
-  font-weight: bold;
+.bet-adj:hover {
+  background: #22253d;
+  color: #fff;
+}
+
+#bet-input {
+  flex: 1;
   text-align: center;
-  min-height: 24px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #2a2c45;
+  background: #0e0f1a;
+  color: #eee;
+  font-size: 15px;
+  font-family: inherit;
+  outline: none;
+}
+
+#bet-input:focus {
+  border-color: #4a6cf7;
+}
+
+#spin-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #22c55e 0%, #15803d 100%);
+  color: #fff;
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s, background 0.2s;
+  box-shadow: 0 4px 16px rgba(34, 197, 94, 0.35);
+  font-family: inherit;
+}
+
+#spin-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(34, 197, 94, 0.45);
+}
+
+#spin-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+#spin-btn:disabled {
+  background: #1a1c2e;
+  color: #333;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* ── Message ── */
+#message {
+  padding: 0 20px 18px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 700;
+  min-height: 26px;
+}
+
+/* ── Win flash ── */
+@keyframes win-flash {
+  0%, 100% { background: transparent; }
+  50%       { background: rgba(255, 215, 0, 0.25); }
+}
+
+.symbol-cell.winning {
+  animation: win-flash 0.45s ease-in-out 4;
+}
+
+/* ── Paytable ── */
+.paytable {
+  width: 360px;
+  background: #13141f;
+  border: 1px solid #2a2c45;
+  border-radius: 16px;
+  padding: 18px 20px;
+}
+
+.paytable-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+.paytable-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.pay-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #0e0f1a;
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+.pay-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.pay-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.pay-label {
+  font-size: 11px;
+  color: #555;
+  white-space: nowrap;
+}
+
+.pay-amount {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffd700;
 }

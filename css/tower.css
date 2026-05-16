@@ -1,0 +1,96 @@
+.game-container {
+  margin: 40px auto;
+  padding: 0 40px;
+  max-width: 700px;
+  text-align: center;
+}
+
+.controls {
+  margin-bottom: 20px;
+}
+
+.controls input,
+.controls select {
+  padding: 6px;
+  margin: 0 10px;
+  background: #222;
+  border: 1px solid #444;
+  color: white;
+  border-radius: 4px;
+}
+
+button {
+  padding: 10px 20px;
+  background: #4a90e2;
+  border: none;
+  color: white;
+  margin: 5px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+button:disabled {
+  background: #555;
+  cursor: not-allowed;
+}
+
+.tower {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 8px;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+}
+
+.tile {
+  width: 60px;
+  height: 60px;
+  background: #222;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  cursor: pointer;
+  transition: background 0.2s;
+  border: 1px solid #333;
+}
+
+.tile:hover {
+  background: #2a2a2a;
+}
+
+.tile.revealed {
+  cursor: default;
+}
+
+.tile.check {
+  background: #28a745;
+}
+
+.tile.bomb {
+  background: #dc3545;
+}
+
+.result {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #ffd700;
+}
+
+#balance-container {
+  margin: 10px 0 20px;
+  font-size: 20px;
+  color: #00ff99;
+}
+
+#multiplierDisplay {
+  margin-top: 12px;
+  font-size: 16px;
+  color: #aaa;
+}
